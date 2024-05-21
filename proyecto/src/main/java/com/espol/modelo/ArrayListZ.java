@@ -14,8 +14,8 @@ import java.util.ListIterator;
  * @author joshz
  */
 public class ArrayListZ<E> implements List<E> {
-    int MaxSize = 10, n=0;
-    E arreglo[];
+    private int MaxSize = 10, n=0;
+    public E arreglo[];
     public ArrayListZ(){
         this.arreglo = (E[]) new Object[MaxSize];
     }
@@ -32,7 +32,12 @@ public class ArrayListZ<E> implements List<E> {
 
     @Override
     public boolean contains(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for (int i=0; i<n ;i++){
+            if (arreglo[i].equals(o)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
