@@ -4,10 +4,12 @@
  */
 package com.espol.modelo;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 /**
  *
@@ -33,7 +35,8 @@ public class ArrayListZ<E> implements List<E> {
     @Override
     public boolean contains(Object o) {
         for (int i=0; i<n ;i++){
-            if (arreglo[i].equals(o)){
+            E elemento=arreglo[i];
+            if (o==null ? elemento==null : o.equals(elemento)){
                 return true;
             }
         }
@@ -42,41 +45,88 @@ public class ArrayListZ<E> implements List<E> {
 
     @Override
     public Iterator<E> iterator() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new ArrayListZIterator();
     }
-
+    
+    private class ArrayListZIterator implements Iterator<E>{
+        private int nActual;
+        private boolean puedeRemover;
+        
+        public ArrayListZIterator(){
+            this.nActual=0;
+            puedeRemover=false;
+        }
+        
+        @Override
+        public boolean hasNext(){
+            return nActual < n;
+        }
+        
+        @Override
+        public E next(){
+            if(!hasNext())
+                throw new NoSuchElementException();
+            puedeRemover=true;
+            return arreglo[nActual++];
+        }
+        
+        @Override
+        public void remove(){
+            if(!puedeRemover){
+                throw new IllegalStateException();
+            }
+            ArrayListZ.this.remove(--nActual);
+            puedeRemover=false;
+        }
+    }
+    
     @Override
     public Object[] toArray() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return Arrays.copyOf(arreglo, this.size());
     }
 
     @Override
     public <T> T[] toArray(T[] a) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int tamanio=this.size();
+        if(a.length<tamanio){
+            return (T[]) Arrays.copyOf(arreglo, tamanio, a.getClass());
+        }
+        System.arraycopy(arreglo,0,a,0,tamanio);
+        if(a.length>tamanio){
+            for(int i=tamanio;i<a.length;i++)
+                a[i]=null;
+        }
+        return a;
     }
 
+    private void crecer(){
+        MaxSize*=2;
+        E[] crecido=(E[]) new Object[MaxSize];
+        System.arraycopy(arreglo,0,crecido,0,n);
+        arreglo=crecido;
+    }
+    
     @Override
     public boolean add(E e) {
-        if (n >= MaxSize){
-            E arr[] = (E[]) new Object[MaxSize*2];
-            System.arraycopy(arreglo,0, arr, 0, MaxSize);
-            MaxSize*=2;
-            arreglo=arr;
-        }
+        if (n >= MaxSize)
+            crecer();
         arreglo[n++]=e;
         return true;
     }
 
+    private boolean eliminar(int indice){
+        int movimientos=n-indice-1;
+        if(movimientos==0) return false;
+        System.arraycopy(arreglo,indice+1,arreglo,indice,movimientos);
+        arreglo[--n]=null;
+        return true;
+    }
+    
     @Override
     public boolean remove(Object o) {
-        for (int i=0;i<MaxSize;i++){
+        for (int i=0;i<n;i++){
             if (o==null ? arreglo[i]==null:arreglo[i].equals(o)){
-                int nmov = n-i-1;
-                if (nmov>0){
-                    System.arraycopy(arreglo, i+1, arreglo, i, nmov);
-                }
-                arreglo[--n]=null;
-                return true;
+                return eliminar(i);
             }
         }
         return false;
@@ -84,62 +134,110 @@ public class ArrayListZ<E> implements List<E> {
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for(Object o:c){
+            if(!contains(c))
+                return false;
+        }
+        return true;
     }
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for(E e:c)
+            this.add(e);
+        return true;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for(E e:c){
+            this.add(index++, e);
+        }
+        return true;
     }
 
     @Override
     public boolean removeAll(Collection<?> c) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int contador=0;
+        for(Object o:c){
+            if(this.remove(o)) contador++;
+        }
+        return contador>0;
     }
 
     @Override
     public boolean retainAll(Collection<?> c) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int contador=0;
+        for(Object o:c){
+            if(!this.contains(o)){
+                this.remove(o);
+                contador++;
+            }
+        }
+        return contador>0;
     }
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for(int i=0;i<this.size();i++)
+            arreglo[i]=null;
+        n=0;
     }
 
     @Override
     public E get(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return arreglo[index];
     }
 
     @Override
     public E set(int index, E element) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        E previo=arreglo[index];
+        arreglo[index]=element;
+        return previo;
     }
 
+    private boolean agregarEspacio(int indice){
+        int movimientos=n-indice;
+        if(movimientos-1==0) return false;
+        System.arraycopy(arreglo,indice,arreglo,indice+1,movimientos);
+        arreglo[indice]=null;
+        return true;
+    }
+    
     @Override
     public void add(int index, E element) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(n>=MaxSize)
+            crecer();
+        agregarEspacio(index);
+        arreglo[index]=element;
     }
 
     @Override
     public E remove(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        E copia=arreglo[index];
+        eliminar(index);
+        return copia;
     }
 
     @Override
     public int indexOf(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        for(int i=0;i<this.size();i++){
+            E elemento=arreglo[i];
+            if(o==null ? elemento==null : o.equals(elemento))
+                return i;
+        }
+        return -1;
     }
 
     @Override
     public int lastIndexOf(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        int ultimoIndice=-1;
+        for(int i=0;i<this.size();i++){
+            E elemento=arreglo[i];
+            if(o==null ? elemento==null : o.equals(elemento))
+                ultimoIndice=i;
+        }
+        return ultimoIndice;
     }
 
     @Override
@@ -154,6 +252,10 @@ public class ArrayListZ<E> implements List<E> {
 
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayListZ<E> subLista = new ArrayListZ<>();
+        for (int i = fromIndex; i < toIndex; i++){
+            subLista.add(arreglo[i]);
+        }
+        return subLista;
     }
 }
