@@ -1,6 +1,7 @@
 package com.espol.proyecto;
 
 import com.espol.modelo.ArrayListZ;
+import com.espol.modelo.User;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +15,14 @@ import java.util.Arrays;
  * JavaFX App
  */
 public class App extends Application {
-
+    private static User u;
+    public static void setU(User u) {
+        App.u = u;
+    }
+    public static User getU() {
+        return u;
+    }
+    
     private static Scene scene;
 
     @Override
