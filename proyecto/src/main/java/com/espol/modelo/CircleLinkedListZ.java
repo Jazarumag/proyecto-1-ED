@@ -13,7 +13,7 @@ import java.util.ListIterator;
  *
  * @author joshz
  */
-public class LinkedListZ<E> implements List<E> {
+public class CircleLinkedListZ<E> implements List<E> {
     
     Node primero;
     Node ultimo;
@@ -21,9 +21,11 @@ public class LinkedListZ<E> implements List<E> {
     protected class Node{
         E contenido;
         Node sig;
+        Node ant;
         Node(E e){
-            contenido=e;
-            sig=null;
+            this.contenido=e;
+            this.sig=null;
+            this.ant=null;
         }
     }
     
@@ -32,7 +34,7 @@ public class LinkedListZ<E> implements List<E> {
         int cont=1;
         Node prim = primero;
         if (primero == null) return 0;
-        while (!prim.equals(ultimo)){
+        while (prim.sig != null){
             prim= prim.sig;
             cont++;
         }
@@ -47,11 +49,12 @@ public class LinkedListZ<E> implements List<E> {
     @Override
     public boolean contains(Object o) {
         Node prim = primero;
-        if (prim.contenido.equals(o)) return true;
-        while (!prim.equals(ultimo)){
-            prim = prim.sig;
-            if (prim.equals(o)) return true;
+        while (prim != null) {
+        if (prim.contenido.equals(o)) {
+            return true;
         }
+        prim = prim.sig;
+    }
         return false;
     }
 
@@ -72,12 +75,48 @@ public class LinkedListZ<E> implements List<E> {
 
     @Override
     public boolean add(E e) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Node newNode = new Node(e);
+        if (primero == null) {
+            primero = newNode;
+            ultimo = newNode;
+        } else {
+            ultimo.sig = newNode;
+            newNode.ant = ultimo;
+            newNode.sig = primero;
+            primero.ant = newNode;
+            ultimo = newNode;
+        }
+        return true;
     }
 
     @Override
     public boolean remove(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (primero == null) {
+        return false;
+        }
+        Node actual = primero;
+        do {
+            if (actual.contenido.equals(o)) {
+                if (actual == primero && actual == ultimo) {
+                    primero = null;
+                    ultimo = null;
+                } else if (actual == primero) {
+                    primero = primero.sig;
+                    primero.ant = ultimo;
+                    ultimo.sig = primero;
+                } else if (actual == ultimo) {
+                    ultimo = ultimo.ant;
+                    ultimo.sig = primero;
+                    primero.ant = ultimo;
+                } else {
+                    actual.ant.sig = actual.sig;
+                    actual.sig.ant = actual.ant;
+                }
+                return true;
+            }
+            actual = actual.sig;
+        } while (actual != primero);
+        return false;
     }
 
     @Override
@@ -107,17 +146,46 @@ public class LinkedListZ<E> implements List<E> {
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        primero=null;
+        ultimo=null;
     }
 
     @Override
     public E get(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (primero == null) {
+        throw new IndexOutOfBoundsException("List is empty");
+        }
+        Node actual = primero;
+        int count = 0;
+        do {
+            if (count == index) {
+                return actual.contenido;
+            }
+            actual = actual.sig;
+            count++;
+        } while (actual != primero);
+        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + count);
     }
 
     @Override
     public E set(int index, E element) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (primero == null) {
+        throw new IndexOutOfBoundsException("List is empty");
+        }
+
+        Node actual = primero;
+        int count = 0;
+        do {
+            if (count == index) {
+                E viejo = actual.contenido;
+                actual.contenido = element;
+                return viejo;
+            }
+            actual = actual.sig;
+            count++;
+        } while (actual != primero);
+
+        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + count);
     }
 
     @Override
