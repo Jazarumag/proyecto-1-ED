@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.UserMenuController">
+   <top>
+      <GridPane prefHeight="102.0" prefWidth="631.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="41.60001220703125" minHeight="10.0" prefHeight="41.60001220703125" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="25.599981689453124" minHeight="10.0" prefHeight="19.19998779296875" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="saludoLabel" alignment="CENTER" prefHeight="36.0" prefWidth="621.0" text="Buenas, usuario" GridPane.halignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+            <HBox alignment="CENTER" prefHeight="14.0" prefWidth="600.0" spacing="300.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <children>
+                  <Button fx:id="botonPerfil" mnemonicParsing="false" onAction="#verPerfil" text="Datos del Perfil">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="botonLogout" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </GridPane>
+   </top>
+   <center>
+      <GridPane prefHeight="371.0" prefWidth="631.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="53.6000244140625" minHeight="31.99998779296875" prefHeight="53.6000244140625" />
+          <RowConstraints maxHeight="86.40001373291015" minHeight="10.0" prefHeight="36.599981689453124" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="99.79999389648438" minHeight="10.0" prefHeight="52.800019836425776" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="102.60001220703126" minHeight="10.0" prefHeight="35.400000000000006" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="101.80002441406248" minHeight="10.0" prefHeight="58.000030517578125" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="114.4000244140625" minHeight="10.0" prefHeight="43.79998779296875" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="136.40004882812502" minHeight="10.0" prefHeight="94.20001220703125" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="¿Busca vender su vehículo?" GridPane.halignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Button fx:id="regisVehi" mnemonicParsing="false" onAction="#cambiarRegistroVehi" prefHeight="32.0" prefWidth="168.0" text="VENDE TU VEHÍCULO" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </GridPane>
+   </center>
+</BorderPane>

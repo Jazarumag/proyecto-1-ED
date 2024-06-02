@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.espol.modelo;
+package com.espol.estructuras;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -15,7 +16,9 @@ import java.util.NoSuchElementException;
  *
  * @author joshz
  */
-public class ArrayListZ<E> implements List<E> {
+public class ArrayListZ<E> implements List<E>, Serializable {
+    
+    private static final long serialVersionUID=1L;
     private int MaxSize = 10, n=0;
     public E arreglo[];
     public ArrayListZ(){
@@ -115,9 +118,11 @@ public class ArrayListZ<E> implements List<E> {
     }
 
     private boolean eliminar(int indice){
+        if(indice<0 || indice>=n)
+            throw new IndexOutOfBoundsException();
         int movimientos=n-indice-1;
-        if(movimientos==0) return false;
-        System.arraycopy(arreglo,indice+1,arreglo,indice,movimientos);
+        if(movimientos>0)
+            System.arraycopy(arreglo,indice+1,arreglo,indice,movimientos);
         arreglo[--n]=null;
         return true;
     }
@@ -150,6 +155,8 @@ public class ArrayListZ<E> implements List<E> {
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
+        if(index<0 || index>=n)
+            throw new IndexOutOfBoundsException();
         for(E e:c){
             this.add(index++, e);
         }
@@ -186,17 +193,23 @@ public class ArrayListZ<E> implements List<E> {
 
     @Override
     public E get(int index) {
+        if(index<0 || index>=n)
+            throw new IndexOutOfBoundsException();
         return arreglo[index];
     }
 
     @Override
     public E set(int index, E element) {
+        if(index<0 || index>=n)
+            throw new IndexOutOfBoundsException();
         E previo=arreglo[index];
         arreglo[index]=element;
         return previo;
     }
 
     private boolean agregarEspacio(int indice){
+        if(indice<0 || indice>=n)
+            throw new IndexOutOfBoundsException();
         int movimientos=n-indice;
         if(movimientos-1==0) return false;
         System.arraycopy(arreglo,indice,arreglo,indice+1,movimientos);
@@ -206,6 +219,8 @@ public class ArrayListZ<E> implements List<E> {
     
     @Override
     public void add(int index, E element) {
+        if(index<0 || index>=n)
+            throw new IndexOutOfBoundsException();
         if(n>=MaxSize)
             crecer();
         agregarEspacio(index);
@@ -214,6 +229,8 @@ public class ArrayListZ<E> implements List<E> {
 
     @Override
     public E remove(int index) {
+        if(index<0 || index>=n)
+            throw new IndexOutOfBoundsException();
         E copia=arreglo[index];
         eliminar(index);
         return copia;
@@ -252,10 +269,19 @@ public class ArrayListZ<E> implements List<E> {
 
     @Override
     public List<E> subList(int fromIndex, int toIndex) {
+        if(fromIndex<0 || fromIndex>=n || toIndex<fromIndex)
+            throw new IndexOutOfBoundsException();
         ArrayListZ<E> subLista = new ArrayListZ<>();
         for (int i = fromIndex; i < toIndex; i++){
             subLista.add(arreglo[i]);
         }
         return subLista;
+    }
+    
+    @Override
+    public String toString(){
+        List<E> sublista = this.subList(0,n);
+        Object[] array = sublista.toArray();
+        return Arrays.toString(array);
     }
 }
