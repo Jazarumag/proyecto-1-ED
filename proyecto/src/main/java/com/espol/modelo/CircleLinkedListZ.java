@@ -75,63 +75,44 @@ public class CircleLinkedListZ<E> implements List<E> {
 
     @Override
     public boolean add(E e) {
-        Node newNode = new Node(e);
-        if (primero == null) {
-            primero = newNode;
-            ultimo = newNode;
-        } else {
-            ultimo.sig = newNode;
-            newNode.ant = ultimo;
-            newNode.sig = primero;
-            primero.ant = newNode;
-            ultimo = newNode;
-        }
+        add(size(), e);
         return true;
     }
 
     @Override
     public boolean remove(Object o) {
-        if (primero == null) {
-        return false;
-        }
-        Node actual = primero;
-        do {
-            if (actual.contenido.equals(o)) {
-                if (actual == primero && actual == ultimo) {
-                    primero = null;
-                    ultimo = null;
-                } else if (actual == primero) {
-                    primero = primero.sig;
-                    primero.ant = ultimo;
-                    ultimo.sig = primero;
-                } else if (actual == ultimo) {
-                    ultimo = ultimo.ant;
-                    ultimo.sig = primero;
-                    primero.ant = ultimo;
-                } else {
-                    actual.ant.sig = actual.sig;
-                    actual.sig.ant = actual.ant;
-                }
-                return true;
-            }
-            actual = actual.sig;
-        } while (actual != primero);
-        return false;
+        int index = indexOf(o);
+        if (index == -1) return false;
+        remove(index);
+        return true;
     }
 
     @Override
     public boolean containsAll(Collection<?> c) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (c == null) throw new NullPointerException("Collection cannot be null");
+        for (Object o : c) {
+            if (!contains(o)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean addAll(Collection<? extends E> c) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (c == null || c.isEmpty()) return false;
+        for (E element : c) add(size(), element);
+        return true;
     }
 
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (index < 0 || index > size()) throw new IndexOutOfBoundsException("Index out of bounds");
+        int currentIndex = index;
+        for (E element : c) {
+            add(currentIndex++, element);
+        }
+        return true;
     }
 
     @Override
@@ -187,20 +168,77 @@ public class CircleLinkedListZ<E> implements List<E> {
 
         throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + count);
     }
-
+    
+    private Node getNode(int index) {
+        Node actual = primero;
+        for (int i = 0; i < index; i++) {
+            actual = actual.sig;
+        }
+        return actual;
+    }
+    
     @Override
     public void add(int index, E element) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Node nuevo = new Node(element);
+        if (primero == null) {
+            primero = nuevo;
+            ultimo = nuevo;
+            nuevo.sig = nuevo;
+            nuevo.ant = nuevo;
+        } else if (index == 0) {
+            nuevo.sig = primero;
+            nuevo.ant = ultimo;
+            primero.ant = nuevo;
+            ultimo.sig = nuevo;
+            primero = nuevo;
+        } else if (index == size()) {
+            nuevo.sig = primero;
+            nuevo.ant = ultimo;
+            ultimo.sig = nuevo;
+            primero.ant = nuevo;
+            ultimo = nuevo;
+        } else {
+            Node actual = getNode(index);
+            Node anterior = actual.ant;
+            nuevo.sig = actual;
+            nuevo.ant = anterior;
+            anterior.sig = nuevo;
+            actual.ant = nuevo;
+        }
     }
 
     @Override
     public E remove(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Node aEliminar = getNode(index);
+        E contenido = aEliminar.contenido;
+        if (size() == 1) {
+            primero = null;
+            ultimo = null;
+        } else if(aEliminar == primero) {
+            ultimo.sig = primero.sig;
+            primero.sig.ant = ultimo;
+            primero = primero.sig;
+        } else if(aEliminar == ultimo) {
+            primero.ant = ultimo.ant;
+            ultimo.ant.sig = primero;
+            ultimo = ultimo.ant;
+        } else{
+            aEliminar.ant.sig = aEliminar.sig;
+            aEliminar.sig.ant = aEliminar.ant;
+        }
+        return contenido;
     }
 
     @Override
     public int indexOf(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Node actual = primero;
+        for (int i = 0; i < size(); i++) {
+            if (actual.contenido.equals(o)) {
+                return i;
+            }
+            actual = actual.sig;
+        }
+        return -1;
     }
 
     @Override
