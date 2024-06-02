@@ -3,6 +3,6 @@ module com.espol.proyecto {
     requires javafx.fxml;
     requires java.base;
 
-    opens com.espol.proyecto to javafx.fxml;
+    opens com.espol.control to javafx.fxml;
     exports com.espol.proyecto;
 }
