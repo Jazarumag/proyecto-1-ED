@@ -16,6 +16,9 @@ public class Vehiculo {
     private Historial historial;
     // Usuario
     private String userID;
+    // Foto
+    private String foto = "@files/";
+    
     public Vehiculo(int precio, int kilometraje, String ubicacion) {
         this.precio = precio;
         this.kilometraje = kilometraje;

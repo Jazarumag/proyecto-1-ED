@@ -26,6 +26,8 @@ public class UserMenuController {
     private Button botonLogout;
     @FXML
     private Button regisVehi;
+    @FXML
+    private Button comprVehi;
 
     private User usuario;
     

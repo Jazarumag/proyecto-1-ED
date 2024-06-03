@@ -15,7 +15,7 @@ import javafx.fxml.Initializable;
  * @author luisa
  */
 public class VenderVehiculoController implements Initializable {
-
+    
     private User usuario;
     
     public void setUsuario(User usuario){
