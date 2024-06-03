@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Arrays;
+import javafx.scene.image.Image;
 
 /**
  * JavaFX App
@@ -29,6 +30,12 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         scene = new Scene(loadFXML("primary"), 640, 480);
         stage.setScene(scene);
+        stage.setTitle("Garaje Tornillo EC");
+        try {
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/espol/proyecto/files/GarajeTuercaLogo.png")));
+        } catch (NullPointerException e) {
+            System.out.println("Image resource not found: " + e.getMessage());
+        }
         stage.show();
     }
 

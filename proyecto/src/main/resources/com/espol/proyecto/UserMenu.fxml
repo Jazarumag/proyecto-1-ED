@@ -3,25 +3,27 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.UserMenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.UserMenuController">
    <top>
-      <GridPane prefHeight="102.0" prefWidth="631.0" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="102.0" prefWidth="631.0" styleClass="grid-pane" stylesheets="@css/gridpane.css" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="41.60001220703125" minHeight="10.0" prefHeight="41.60001220703125" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="25.599981689453124" minHeight="10.0" prefHeight="19.19998779296875" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="52.0" minHeight="10.0" prefHeight="52.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="25.599981689453124" minHeight="10.0" prefHeight="16.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label fx:id="saludoLabel" alignment="CENTER" prefHeight="36.0" prefWidth="621.0" text="Buenas, usuario" GridPane.halignment="CENTER">
+            <Label fx:id="saludoLabel" alignment="CENTER" prefHeight="36.0" prefWidth="621.0" text="Buenas, usuario" textFill="#363062" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -47,21 +49,21 @@
       </GridPane>
    </top>
    <center>
-      <GridPane prefHeight="371.0" prefWidth="631.0" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="371.0" prefWidth="631.0" styleClass="grid-pane" stylesheets="@css/gridpane.css" BorderPane.alignment="CENTER">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="53.6000244140625" minHeight="31.99998779296875" prefHeight="53.6000244140625" />
           <RowConstraints maxHeight="86.40001373291015" minHeight="10.0" prefHeight="36.599981689453124" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="99.79999389648438" minHeight="10.0" prefHeight="52.800019836425776" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="102.60001220703126" minHeight="10.0" prefHeight="35.400000000000006" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="101.80002441406248" minHeight="10.0" prefHeight="58.000030517578125" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="114.4000244140625" minHeight="10.0" prefHeight="43.79998779296875" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="136.40004882812502" minHeight="10.0" prefHeight="94.20001220703125" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="99.79999389648438" minHeight="7.0" prefHeight="31.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="102.60001220703126" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="131.0" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="114.4000244140625" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="136.40004882812502" minHeight="10.0" prefHeight="63.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="¿Busca vender su vehículo?" GridPane.halignment="CENTER">
+            <Label text="¿Busca vender su vehículo?" textFill="#363062" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -71,6 +73,40 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
+            <Button fx:id="comprVehi" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="168.0" text="COMPRAR VEHÍCULOS" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
+               <children>
+                  <Button mnemonicParsing="false" stylesheets="@css/botones.css" text="🢀">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </HBox.margin>
+                  </Button>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label text="Descripción Carro" textFill="#363062" />
+                     </children>
+                  </VBox>
+                  <Button mnemonicParsing="false" stylesheets="@css/botones.css" text="🢂">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+                     </padding>
+                     <HBox.margin>
+                        <Insets left="15.0" right="15.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </HBox>
          </children>
       </GridPane>
    </center>

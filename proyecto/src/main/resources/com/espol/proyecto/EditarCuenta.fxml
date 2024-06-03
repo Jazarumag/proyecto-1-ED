@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -9,9 +10,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="466.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.EditarCuentaController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="466.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.EditarCuentaController">
    <center>
-      <GridPane alignment="CENTER" BorderPane.alignment="CENTER">
+      <GridPane alignment="CENTER" styleClass="grid-pane" stylesheets="@css/gridpane.css" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -22,14 +23,14 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Nombres/Apellidos:" GridPane.halignment="CENTER">
+            <Label text="Nombres/Apellidos:" textFill="#363062" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
             <TextField fx:id="nomtxt" editable="false" maxWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="LEFT">
             </TextField>
-            <Label text="Correo:" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Label text="Correo:" textFill="#363062" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -40,7 +41,7 @@
       </GridPane>
    </center>
    <bottom>
-      <GridPane prefHeight="218.0" prefWidth="730.0" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="218.0" prefWidth="730.0" styleClass="grid-pane" stylesheets="@css/gridpane.css" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -53,23 +54,23 @@
         </rowConstraints>
          <children>
             <TextField fx:id="newpasstxt" maxWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-            <Label text="Contraseña nueva:" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Label text="Contraseña nueva:" textFill="#363062" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label text="¿Quiere cambiar contraseña?" underline="true" GridPane.halignment="CENTER">
+            <Label text="¿Quiere cambiar contraseña?" textFill="#363062" underline="true" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label text="Contraseña antigua (Confirmación):" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Label text="Contraseña antigua (Confirmación):" textFill="#363062" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
             <TextField fx:id="oldpasstxt" maxWidth="300.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
-            <Button fx:id="contranuevaBoton" mnemonicParsing="false" onAction="#cambiarPass" text="Cambiar Contraseña" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Button fx:id="contranuevaBoton" mnemonicParsing="false" onAction="#cambiarPass" stylesheets="@css/botones.css" text="Cambiar Contraseña" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -78,7 +79,7 @@
       </GridPane>
    </bottom>
    <top>
-      <GridPane BorderPane.alignment="CENTER">
+      <GridPane styleClass="grid-pane" stylesheets="@css/gridpane.css" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -87,15 +88,21 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="botonMenu" mnemonicParsing="false" onAction="#cambiarMenu" text="Menú Principal" GridPane.rowIndex="1">
+            <Button fx:id="botonMenu" mnemonicParsing="false" onAction="#cambiarMenu" stylesheets="@css/botones.css" text="Menú Principal" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="15.0" />
+               </GridPane.margin>
             </Button>
-            <Label text="Datos del Perfil" GridPane.halignment="CENTER">
+            <Label text="Datos del Perfil" textFill="#363062" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin>
             </Label>
          </children>
       </GridPane>

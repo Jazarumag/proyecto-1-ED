@@ -1,7 +1,9 @@
-.button{
+.button {
     -fx-background-color: #EADBC8;
-    -fx-background-size:cover;
+    -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
     -fx-border-color: transparent;
     -fx-border-width: 0;
+    -fx-font-weight: bold;
+    -fx-text-fill: #363062;
 }

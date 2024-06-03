@@ -21,19 +21,30 @@ public class Vehiculo implements Serializable{
     private int precio, kilometraje, peso;
     private String marca, modelo, ano;
     private String motor;
-    private String transmision; //Manual o Automatico, crear Enum
+    private Transmision transmision; //Manual o Automatico
     private String ubicacion;
     private Historial historial;
     // Usuario
     private String userID;
     // Foto
-    private String foto = "@files/";
-    
-    public Vehiculo(String placa, int precio, int kilometraje, String ubicacion) {
-        this.placa=placa;
+    private String foto = "/com/espol/proyecto/files/";
+
+    public Vehiculo(String placa, int precio, int kilometraje,
+            int peso, String marca, String modelo, String ano,
+            String motor, Transmision transmision, String ubicacion,
+            Historial historial, String userID) {
+        this.placa = placa;
         this.precio = precio;
         this.kilometraje = kilometraje;
+        this.peso = peso;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.ano = ano;
+        this.motor = motor;
+        this.transmision = transmision;
         this.ubicacion = ubicacion;
+        this.historial = historial;
+        this.userID = userID;
     }
     
     public String getPlaca(){
@@ -71,7 +82,7 @@ public class Vehiculo implements Serializable{
     public String getMotor() {
         return motor;
     }
-    public String getTransmision() {
+    public Transmision getTransmision() {
         return transmision;
     }
     public String getUbicacion() {
