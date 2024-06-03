@@ -1,6 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.Pane?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.VenderVehiculoController" />
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.VenderVehiculoController">
+   <children>
+      <TextArea fx:id="precio" layoutX="112.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
+      <TextArea fx:id="anio" layoutX="112.0" layoutY="311.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
+      <TextArea fx:id="modelo" layoutX="112.0" layoutY="263.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
+      <TextArea fx:id="marca" layoutX="113.0" layoutY="217.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
+      <TextArea fx:id="peso" layoutX="112.0" layoutY="169.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
+      <TextArea fx:id="km" layoutX="113.0" layoutY="118.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
+      <TextArea fx:id="ubicacion" layoutX="382.0" layoutY="169.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
+      <TextArea fx:id="motor" layoutX="382.0" layoutY="70.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
+      <TextArea fx:id="transmision" layoutX="382.0" layoutY="118.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="150.0" />
+      <Label layoutX="49.0" layoutY="77.0" text="Precio" />
+      <Label layoutX="36.0" layoutY="125.0" text="Kilometraje" />
+      <Label layoutX="52.0" layoutY="176.0" text="Peso" />
+      <Label layoutX="47.0" layoutY="224.0" text="Marca" />
+      <Label layoutX="45.0" layoutY="270.0" text="Modelo" />
+      <Label layoutX="53.0" layoutY="317.0" text="Año" />
+      <Label layoutX="320.0" layoutY="77.0" text="Motor" />
+      <Label layoutX="305.0" layoutY="124.0" text="Transmision" />
+      <Label layoutX="309.0" layoutY="176.0" text="Ubicacion" />
+   </children>
+</Pane>
