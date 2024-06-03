@@ -72,6 +72,17 @@ public class UserMenuController {
         stage.setScene(escena);
         stage.show();
     }
+    @FXML
+    private void cambiarComprarVehi(ActionEvent event) throws IOException{
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/espol/proyecto/ComprarVehiculo.fxml"));
+        Parent root = (Parent) loader.load();
+        ComprarVehiculoController vehiculoControlador=loader.getController();
+        vehiculoControlador.setUsuario(usuario);
+        Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene escena=new Scene(root);
+        stage.setScene(escena);
+        stage.show();
+    }
 
     @FXML
     private void verPerfil(ActionEvent event) throws IOException{

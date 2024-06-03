@@ -22,7 +22,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="VendeVehiculo" mnemonicParsing="false" stylesheets="@css/botones.css" text="Vende Tu Vehículo" textFill="#363062" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
+            <Button fx:id="VendeVehiculo" mnemonicParsing="false" onAction="#cambiarRegistroVehi" stylesheets="@css/botones.css" text="Vende Tu Vehículo" textFill="#363062" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets right="10.0" top="15.0" />
                </GridPane.margin>
@@ -30,7 +30,7 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="Volver" mnemonicParsing="false" stylesheets="@css/botones.css" text="Menu Principal" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+            <Button fx:id="Volver" mnemonicParsing="false" onAction="#cambiarPantallaUsua" stylesheets="@css/botones.css" text="Menu Principal" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets left="10.0" top="15.0" />
                </GridPane.margin>

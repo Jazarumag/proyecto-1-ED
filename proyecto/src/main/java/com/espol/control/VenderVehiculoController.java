@@ -110,13 +110,13 @@ public class VenderVehiculoController implements Initializable{
         
         for(int j=0;j<vehiculoRqs.size();j++){
             Label label = new Label(vehiculoRqs.get(j)+" :");
-            label.setTextFill(Color.WHITE);
+            label.setTextFill(Color.BLACK);
             label.setFont(Font.font("System", FontWeight.BOLD, 12));
 
             TextField textField = new TextField();
             textField.setMaxWidth(200);
 
-            textField.setStyle("-fx-background-color: #FFF5E099; -fx-background-repeat: no-repeat; -fx-background-size: cover; -fx-border-color: transparent; -fx-border-width: 0;");
+            textField.setStyle("-fx-background-color: #DAC0A3; -fx-background-repeat: no-repeat; -fx-background-size: cover; -fx-border-color: transparent; -fx-border-width: 0;");
 
             cj.add(label, 0, j);
             cj.add(textField, 1, j);
@@ -137,7 +137,7 @@ public class VenderVehiculoController implements Initializable{
     }
     
     private void cambiarPantallaUsua(ActionEvent event) throws IOException{
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/espol/control/UserMenu.fxml"));
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/espol/proyecto/UserMenu.fxml"));
         Parent root = (Parent) loader.load();
         UserMenuController menuController=loader.getController();
         menuController.setUsuario(usuario);
