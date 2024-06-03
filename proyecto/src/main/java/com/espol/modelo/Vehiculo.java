@@ -31,8 +31,7 @@ public class Vehiculo implements Serializable{
 
     public Vehiculo(String placa, int precio, int kilometraje,
             int peso, String marca, String modelo, String ano,
-            String motor, Transmision transmision, String ubicacion,
-            Historial historial, String userID) {
+            String motor, Transmision transmision, String ubicacion, String userID) {
         this.placa = placa;
         this.precio = precio;
         this.kilometraje = kilometraje;
@@ -43,7 +42,6 @@ public class Vehiculo implements Serializable{
         this.motor = motor;
         this.transmision = transmision;
         this.ubicacion = ubicacion;
-        this.historial = historial;
         this.userID = userID;
     }
     
@@ -143,4 +141,10 @@ public class Vehiculo implements Serializable{
             return true;
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "Vehiculo{" + "placa=" + placa + ", precio=" + precio + ", kilometraje=" + kilometraje + ", peso=" + peso + ", marca=" + marca + ", modelo=" + modelo + ", ano=" + ano + ", motor=" + motor + ", transmision=" + transmision + ", ubicacion=" + ubicacion + ", historial=" + historial + ", userID=" + userID + ", foto=" + foto + '}';
+    }
+    
 }

@@ -71,6 +71,7 @@ public class VenderVehiculoController implements Initializable{
         this.usuario=usuario;
     }
     
+    
     //esto era porque el combobox lo hice dinamico segun el tipo de vehiculo pero ya no es necesario
     @FXML
     private void comboBoxEvent(ActionEvent e){
