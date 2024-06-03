@@ -48,4 +48,13 @@ public class Utilitaria {
         }
         return true;
     }
+    
+    public static Vehiculo obtenerVehiculoPorPlaca(String placa){
+         ArrayListZ<Vehiculo> vehis=Vehiculo.readListFileSer("vehiculos.ser");
+         for(Vehiculo v:vehis){
+             if(v.getPlaca().equals(placa))
+                 return v;
+         }
+         return null;
+    }
 }
