@@ -90,8 +90,8 @@
                   </Button>
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label text="Descripción Carro" textFill="#363062" />
+                        <ImageView fx:id="foto" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                        <Label fx:id="descripcion" text="Descripción Carro" textFill="#363062" />
                      </children>
                   </VBox>
                   <Button fx:id="DER" mnemonicParsing="false" onAction="#moverDer" stylesheets="@css/botones.css" text="🢂">

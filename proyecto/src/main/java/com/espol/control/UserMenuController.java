@@ -19,6 +19,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 public class UserMenuController {
@@ -39,9 +41,12 @@ public class UserMenuController {
     private User usuario;
     private int index;
     @FXML
-    private Button consultarOfer;
-    @FXML
     private Button botonPerfil;
+    @FXML
+    private Label descripcion;
+    @FXML
+    private ImageView foto;
+    
     
     public void setUsuario(User usuario){
         this.usuario=usuario;
@@ -117,6 +122,15 @@ public class UserMenuController {
         CircleLinkedListZ<Vehiculo> carrusel = new CircleLinkedListZ<>();
         ArrayListZ<Vehiculo> a = Vehiculo.readListFileSer("vehiculos.ser");
         carrusel.addAll(a);
-        System.out.println(carrusel.get(index));
+        Vehiculo carrito = carrusel.get(index);
+        System.out.println(carrito);
+        try {
+            Image imagen = new Image("file:"+carrito.getFoto());
+            foto.setImage(imagen);
+        } catch (IllegalArgumentException e) {
+            System.err.println("URL de imagen no válida o recurso no encontrado: " + carrito.getFoto());
+            e.printStackTrace();
+        }
+        descripcion.setText(carrito.getPlaca()+" "+carrito.getModelo()+" "+carrito.getMarca());
     }
 }
