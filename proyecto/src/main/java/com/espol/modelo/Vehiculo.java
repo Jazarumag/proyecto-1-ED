@@ -27,7 +27,7 @@ public class Vehiculo implements Serializable{
     // Usuario
     private String userID;
     // Foto
-    private String foto = "/com/espol/proyecto/files/";
+    private String foto;
 
     public Vehiculo(String placa, int precio, int kilometraje,
             int peso, String marca, String modelo, String ano,

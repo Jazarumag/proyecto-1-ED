@@ -118,19 +118,9 @@ public class VenderVehiculoController implements Initializable{
 
     @FXML
 private void registrar(ActionEvent event) throws IOException {
-    int indiceCol = 1;
-    ArrayListZ<String> cosasVehiculo = new ArrayListZ<>();
-    for (Node nodo : cj.getChildren()) {
-        Integer columna = GridPane.getColumnIndex(nodo);
-
-        if (columna != null && columna == indiceCol) {
-            TextField coso = (TextField) nodo;
-            cosasVehiculo.add(coso.getText());
-        }
-    }
-    if (Utilitaria.obtenerVehiculoPorPlaca(cosasVehiculo.get(0)) == null) { 
+    String placa = tfPlaca.getText();
+    if (Utilitaria.obtenerVehiculoPorPlaca(placa) == null) { 
         try {
-            String placa = tfPlaca.getText();
             int precio = Integer.parseInt(tfPrecio.getText());
             int km = Integer.parseInt(tfKm.getText());
             int peso = Integer.parseInt(tfPeso.getText());
