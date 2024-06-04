@@ -80,7 +80,7 @@
             </Button>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
                <children>
-                  <Button mnemonicParsing="false" stylesheets="@css/botones.css" text="🢀">
+                  <Button fx:id="IZQ" mnemonicParsing="false" onAction="#moverIzq" stylesheets="@css/botones.css" text="🢀">
                      <padding>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                      </padding>
@@ -94,7 +94,7 @@
                         <Label text="Descripción Carro" textFill="#363062" />
                      </children>
                   </VBox>
-                  <Button mnemonicParsing="false" stylesheets="@css/botones.css" text="🢂">
+                  <Button fx:id="DER" mnemonicParsing="false" onAction="#moverDer" stylesheets="@css/botones.css" text="🢂">
                      <padding>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                      </padding>

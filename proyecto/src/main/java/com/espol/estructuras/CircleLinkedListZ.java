@@ -34,7 +34,7 @@ public class CircleLinkedListZ<E> implements List<E> {
         int cont=1;
         Node prim = primero;
         if (primero == null) return 0;
-        while (prim.sig != null){
+        while (prim.sig != primero){
             prim= prim.sig;
             cont++;
         }
@@ -49,12 +49,13 @@ public class CircleLinkedListZ<E> implements List<E> {
     @Override
     public boolean contains(Object o) {
         Node prim = primero;
-        while (prim != null) {
-        if (prim.contenido.equals(o)) {
-            return true;
-        }
-        prim = prim.sig;
-    }
+        if (prim == null) return false;
+        do {
+            if (prim.contenido.equals(o)) {
+                return true;
+            }
+            prim = prim.sig;
+        } while (prim != primero);
         return false;
     }
 
@@ -133,40 +134,21 @@ public class CircleLinkedListZ<E> implements List<E> {
 
     @Override
     public E get(int index) {
-        if (primero == null) {
-        throw new IndexOutOfBoundsException("List is empty");
+        if (index < 0 ) {
+            index*=(-1);
         }
-        Node actual = primero;
-        int count = 0;
-        do {
-            if (count == index) {
-                return actual.contenido;
-            }
-            actual = actual.sig;
-            count++;
-        } while (actual != primero);
-        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + count);
+        return getNode(index).contenido;
     }
 
     @Override
     public E set(int index, E element) {
         if (primero == null) {
-        throw new IndexOutOfBoundsException("List is empty");
+            throw new IndexOutOfBoundsException("List is empty");
         }
-
-        Node actual = primero;
-        int count = 0;
-        do {
-            if (count == index) {
-                E viejo = actual.contenido;
-                actual.contenido = element;
-                return viejo;
-            }
-            actual = actual.sig;
-            count++;
-        } while (actual != primero);
-
-        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + count);
+        Node node = getNode(index);
+        E oldValue = node.contenido;
+        node.contenido = element;
+        return oldValue;
     }
     
     private Node getNode(int index) {
@@ -233,9 +215,7 @@ public class CircleLinkedListZ<E> implements List<E> {
     public int indexOf(Object o) {
         Node actual = primero;
         for (int i = 0; i < size(); i++) {
-            if (actual.contenido.equals(o)) {
-                return i;
-            }
+            if (actual.contenido.equals(o)) return i;
             actual = actual.sig;
         }
         return -1;

@@ -4,7 +4,10 @@
  */
 package com.espol.control;
 
+import com.espol.estructuras.ArrayListZ;
+import com.espol.estructuras.CircleLinkedListZ;
 import com.espol.modelo.User;
+import com.espol.modelo.Vehiculo;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,7 +22,11 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class UserMenuController {
-
+    
+    @FXML
+    private Button IZQ;
+    @FXML
+    private Button DER;
     @FXML
     private Label saludoLabel;
     @FXML
@@ -30,7 +37,7 @@ public class UserMenuController {
     private Button comprVehi;
 
     private User usuario;
-    
+    private int index;
     @FXML
     private Button consultarOfer;
     @FXML
@@ -95,5 +102,21 @@ public class UserMenuController {
         stage.setScene(escena);
         stage.show();
     }
-
+    
+    @FXML
+    private void moverDer(){
+        index++;
+        CarruselCarros();
+    }
+    @FXML
+    private void moverIzq(){
+        index--;
+        CarruselCarros();
+    }
+    private void CarruselCarros(){
+        CircleLinkedListZ<Vehiculo> carrusel = new CircleLinkedListZ<>();
+        ArrayListZ<Vehiculo> a = Vehiculo.readListFileSer("vehiculos.ser");
+        carrusel.addAll(a);
+        System.out.println(carrusel.get(index));
+    }
 }
