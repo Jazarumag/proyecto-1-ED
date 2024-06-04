@@ -6,6 +6,7 @@ package com.espol.control;
 
 import com.espol.estructuras.ArrayListZ;
 import com.espol.modelo.TipoVehiculo;
+import com.espol.modelo.Transmision;
 import com.espol.modelo.User;
 import com.espol.modelo.Utilitaria;
 import com.espol.modelo.Vehiculo;
@@ -51,7 +52,7 @@ public class VenderVehiculoController implements Initializable{
     @FXML
     private Button botontr;
     @FXML
-    private ComboBox<TipoVehiculo> comboBoxt;
+    private ComboBox<Transmision> cbTransmision;
     @FXML
     private GridPane cj;
     @FXML
@@ -60,9 +61,26 @@ public class VenderVehiculoController implements Initializable{
     private Button botonRegistrar;
     @FXML
     private ImageView imgVehi;
+    @FXML
+    private TextField tfPrecio;
+    @FXML
+    private TextField tfKm;
+    @FXML
+    private TextField tfMarca;
+    @FXML
+    private TextField tfPeso;
+    @FXML
+    private TextField tfModelo;
+    @FXML
+    private TextField tfAnio;
+    @FXML
+    private TextField tfMotor;
+    @FXML
+    private TextField tfUbicacion;
+    @FXML
+    private TextField tfPlaca;
     
     private User usuario;
-    private ArrayListZ<String> vehiculoRqs=new ArrayListZ<>(); //esta kk era para el combobox de vehiculos asi que es inutil
     private ArrayListZ<User> usuarios; //esto se usa para luego sacar el id de usuario
     
     private File imagenElegida;
@@ -70,70 +88,11 @@ public class VenderVehiculoController implements Initializable{
     public void setUsuario(User usuario){
         this.usuario=usuario;
     }
-    
-    
-    //esto era porque el combobox lo hice dinamico segun el tipo de vehiculo pero ya no es necesario
-    @FXML
-    private void comboBoxEvent(ActionEvent e){
-        TipoVehiculo seleccionado = comboBoxt.getValue();
-        vehiculoRqs=new ArrayListZ<>();
-        vehiculoRqs.add("Placa");
-        vehiculoRqs.add("Marca");
-        vehiculoRqs.add("Modelo");
-        vehiculoRqs.add("Tipo Motor");
-        vehiculoRqs.add("Año");
-        vehiculoRqs.add("Recorrido");
-        vehiculoRqs.add("Color");
-        vehiculoRqs.add("Tipo de combustible");
-        vehiculoRqs.add("Precio");
-        switch(seleccionado) {
-            case MOTO:
-                cj.getChildren().clear();       
-                imagenElegida=null;
-                imgVehi.setImage(null);
-                break;
-            case CARRO:
-                vehiculoRqs.add("Vidrios");
-                vehiculoRqs.add("Transmisión");
-                cj.getChildren().clear();   
-                imagenElegida=null;
-                imgVehi.setImage(null);
-                break;
-            case CAMIONETA:
-                vehiculoRqs.add("Vidrios");
-                vehiculoRqs.add("Transmisión");
-                vehiculoRqs.add("Tracción");    
-                cj.getChildren().clear();
-                imagenElegida=null;
-                imgVehi.setImage(null);
-                break;
-        }
-        
-        for(int j=0;j<vehiculoRqs.size();j++){
-            Label label = new Label(vehiculoRqs.get(j)+" :");
-            label.setTextFill(Color.BLACK);
-            label.setFont(Font.font("System", FontWeight.BOLD, 12));
-
-            TextField textField = new TextField();
-            textField.setMaxWidth(200);
-
-            textField.setStyle("-fx-background-color: #DAC0A3; -fx-background-repeat: no-repeat; -fx-background-size: cover; -fx-border-color: transparent; -fx-border-width: 0;");
-
-            cj.add(label, 0, j);
-            cj.add(textField, 1, j);
-
-            GridPane.setHalignment(label, HPos.CENTER);
-            GridPane.setValignment(label, VPos.CENTER);
-            GridPane.setHalignment(textField, HPos.LEFT);
-            GridPane.setValignment(textField, VPos.CENTER);
-        }
-
-    }
-    
+ 
     @Override
     public void initialize(URL url,ResourceBundle rb){
-        TipoVehiculo[] t={TipoVehiculo.MOTO,TipoVehiculo.CARRO,TipoVehiculo.CAMIONETA};
-        comboBoxt.getItems().addAll(t);
+        Transmision[] t={Transmision.MANUAL,Transmision.AUTOMATICO};
+        cbTransmision.getItems().addAll(t);
         usuarios=User.readListFileSer("usuarios.ser");
     }
     
@@ -158,94 +117,85 @@ public class VenderVehiculoController implements Initializable{
     }
 
     @FXML
-    private void registrar(ActionEvent event) throws IOException{  //aqui debes chambear pe
-        if(vehiculoRqs.isEmpty()){
-            Alert alerta=new Alert(Alert.AlertType.ERROR,"No ha seleccionado tipo de Vehiculo");
+private void registrar(ActionEvent event) throws IOException {
+    int indiceCol = 1;
+    ArrayListZ<String> cosasVehiculo = new ArrayListZ<>();
+    for (Node nodo : cj.getChildren()) {
+        Integer columna = GridPane.getColumnIndex(nodo);
+
+        if (columna != null && columna == indiceCol) {
+            TextField coso = (TextField) nodo;
+            cosasVehiculo.add(coso.getText());
+        }
+    }
+    if (Utilitaria.obtenerVehiculoPorPlaca(cosasVehiculo.get(0)) == null) { 
+        try {
+            String placa = tfPlaca.getText();
+            int precio = Integer.parseInt(tfPrecio.getText());
+            int km = Integer.parseInt(tfKm.getText());
+            int peso = Integer.parseInt(tfPeso.getText());
+            String marca = tfMarca.getText();
+            String modelo = tfModelo.getText();
+            String anio = tfAnio.getText();
+            String motor = tfMotor.getText();
+            Transmision transmision = cbTransmision.getValue();
+            String ubicacion = tfUbicacion.getText();
+
+            Vehiculo vehiculo = new Vehiculo(placa, precio, km, peso, marca, modelo, anio, motor, transmision, ubicacion, String.valueOf(usuario.getID()));
+            System.out.println(vehiculo);
+
+            if (imagenElegida != null) {
+                try {
+                    Path destPath;
+                    String relativePath;
+
+                    if (getClass().getProtectionDomain().getCodeSource().getLocation().getPath().endsWith(".jar")) {
+                        String jarDir = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
+                        destPath = Paths.get(jarDir, "imgs", imagenElegida.getName());
+                        relativePath = "imgs/" + imagenElegida.getName();
+                    } else {
+                        destPath = Paths.get("src", "main", "resources", "imgs", imagenElegida.getName());
+                        relativePath = "src/main/resources/imgs/" + imagenElegida.getName();
+                    }
+
+                    Files.createDirectories(destPath.getParent());
+                    Files.copy(imagenElegida.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
+
+                    ArrayListZ<Vehiculo> vehis = Vehiculo.readListFileSer("vehiculos.ser");
+                    vehiculo.setFoto(relativePath);
+
+                    vehis.add(vehiculo);
+                    Vehiculo.saveListFileSer("vehiculos.ser", vehis);
+                    usuario.getVehiculos().add(vehiculo);
+                    int indice = usuarios.indexOf(usuario);
+                    if (indice != -1) {
+                        usuarios.set(indice, usuario);
+                    }
+                    User.saveListFileSer("usuarios.ser", usuarios);
+
+                    Alert alerta = new Alert(Alert.AlertType.INFORMATION, "Vehículo registrado correctamente");
+                    alerta.show();
+                    cambiarPantallaUsua(event);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Alert a = new Alert(Alert.AlertType.ERROR, "Error al subir la imagen: " + e.getMessage());
+                    a.show();
+                }
+            } else {
+                Alert a = new Alert(Alert.AlertType.ERROR, "No ha seleccionado una imagen");
+                a.show();
+            }
+
+        } catch (NumberFormatException errorNum) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR, "No ha ingresado datos válidos: " + errorNum.getMessage());
             alerta.show();
         }
-        else{
-            int indiceCol = 1;
-            ArrayListZ<String> cosasVehiculo = new ArrayListZ<>();
-            for (Node nodo : cj.getChildren()) {
-                Integer columna = GridPane.getColumnIndex(nodo);
-
-                if (columna != null && columna == indiceCol) {
-                    TextField coso = (TextField) nodo;
-                    cosasVehiculo.add(coso.getText());
-                }
-            }
-            if(Utilitaria.obtenerVehiculoPorPlaca(cosasVehiculo.get(0))==null){ //comprueba si la placa ya esta registrada
-                try{
-                    /*
-                    a ver esto es una fumada donde segun el tipo de vehiculo lo inicializaba con el constructor de la clase heredada que cree
-                    pero ya no es necesario porque en vez de eso usaremos Enums asi que ahi mira como arreglas no se
-                    */
-                    
-                    Vehiculo nuevo=null;
-                    if(cosasVehiculo.size()==9){
-                        //nuevo=new Vehiculo(usuario.getID(),cosasVehiculo.get(0),cosasVehiculo.get(1),cosasVehiculo.get(2),cosasVehiculo.get(3),Integer.parseInt(cosasVehiculo.get(4)),Double.parseDouble(cosasVehiculo.get(5)),cosasVehiculo.get(6),cosasVehiculo.get(7),Double.parseDouble(cosasVehiculo.get(8)));
-                    }
-                    else if(cosasVehiculo.size()==11){
-                        //nuevo=new Carro(usuario.getID(),cosasVehiculo.get(0),cosasVehiculo.get(1),cosasVehiculo.get(2),cosasVehiculo.get(3),Integer.parseInt(cosasVehiculo.get(4)),Double.parseDouble(cosasVehiculo.get(5)),cosasVehiculo.get(6),cosasVehiculo.get(7),Double.parseDouble(cosasVehiculo.get(8)),Integer.parseInt(cosasVehiculo.get(9)),cosasVehiculo.get(10));
-                    }
-                    else{
-                        //nuevo=new Camioneta(usuario.getID(),cosasVehiculo.get(0),cosasVehiculo.get(1),cosasVehiculo.get(2),cosasVehiculo.get(3),Integer.parseInt(cosasVehiculo.get(4)),Double.parseDouble(cosasVehiculo.get(5)),cosasVehiculo.get(6),cosasVehiculo.get(7),Double.parseDouble(cosasVehiculo.get(8)),Integer.parseInt(cosasVehiculo.get(9)),cosasVehiculo.get(10),cosasVehiculo.get(11));
-                    }
-                    if (imagenElegida != null) {
-                        try {
-                            Path destPath;
-                            String relativePath;
-
-                            if (getClass().getProtectionDomain().getCodeSource().getLocation().getPath().endsWith(".jar")) {
-                                String jarDir = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
-                                destPath = Paths.get(jarDir, "imgs", imagenElegida.getName());
-                                relativePath = "imgs/" + imagenElegida.getName();
-                            } else {
-                                destPath = Paths.get("src", "main", "resources", "imgs", imagenElegida.getName());
-                                relativePath = "src/main/resources/imgs/" + imagenElegida.getName();
-                            }
-                            
-                            Files.createDirectories(destPath.getParent());
-                            Files.copy(imagenElegida.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
-
-                            ArrayListZ<Vehiculo> vehis = Vehiculo.readListFileSer("vehiculos.ser");
-                            nuevo.setFoto(relativePath);
-                            
-                            vehis.add(nuevo);
-                            Vehiculo.saveListFileSer("vehiculos.ser", vehis);
-                            usuario.getVehiculos().add(nuevo);
-                            int indice = usuarios.indexOf(usuario);
-                            if (indice != -1) {
-                                usuarios.set(indice, usuario);
-                            }
-                            User.saveListFileSer("usuarios.ser", usuarios);
-
-                            Alert alerta = new Alert(Alert.AlertType.INFORMATION, "Vehiculo se ha registrado correctamente");
-                            alerta.show();
-                            cambiarPantallaUsua(event);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        Alert a = new Alert(Alert.AlertType.ERROR, "No ha seleccionado una imagen");
-                        a.show();
-                    }
-
-                    
-                }
-                catch(NumberFormatException errorNum){
-                    Alert alerta=new Alert(Alert.AlertType.ERROR,"No ha ingresado datos válidos");
-                    alerta.show();
-                }
-            }
-            else{
-                Alert alerta=new Alert(Alert.AlertType.ERROR,"Placa del vehiculo ya ha sido registrada");
-                alerta.show();
-            }
-            System.out.println(Vehiculo.readListFileSer("vehiculos.ser"));
-        }
-        
+    } else {
+        Alert alerta = new Alert(Alert.AlertType.ERROR, "La placa del vehículo ya está registrada");
+        alerta.show();
     }
+    System.out.println(Vehiculo.readListFileSer("vehiculos.ser"));
+}
     
     @FXML
     public void subirImagen() { //esto es para subir la imagen asi que no toques nada
