@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="631.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.UserMenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="631.0" stylesheets="@css/fondo.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.UserMenuController">
    <top>
-      <GridPane prefHeight="102.0" prefWidth="631.0" styleClass="grid-pane" stylesheets="@css/gridpane.css" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="102.0" prefWidth="631.0" stylesheets="@css/gridpane.css" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -30,12 +30,12 @@
             </Label>
             <HBox alignment="CENTER" prefHeight="14.0" prefWidth="600.0" spacing="300.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <children>
-                  <Button fx:id="botonPerfil" mnemonicParsing="false" onAction="#verPerfil" text="Datos del Perfil">
+                  <Button fx:id="botonPerfil" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#verPerfil" text="  Datos del Perfil">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
                   </Button>
-                  <Button fx:id="botonLogout" alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onAction="#cerrarSesion" text="Cerrar Sesión">
+                  <Button fx:id="botonLogout" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cerrarSesion" text="  Cerrar Sesión">
                      <font>
                         <Font name="System Bold" size="12.0" />
                      </font>
@@ -49,7 +49,7 @@
       </GridPane>
    </top>
    <center>
-      <GridPane prefHeight="371.0" prefWidth="631.0" styleClass="grid-pane" stylesheets="@css/gridpane.css" BorderPane.alignment="CENTER">
+      <GridPane prefHeight="371.0" prefWidth="631.0" stylesheets="@css/gridpane.css" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
@@ -68,19 +68,19 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Button fx:id="regisVehi" mnemonicParsing="false" onAction="#cambiarRegistroVehi" prefHeight="32.0" prefWidth="168.0" text="VENDE TU VEHÍCULO" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Button fx:id="regisVehi" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cambiarRegistroVehi" prefHeight="32.0" prefWidth="168.0" text="   VENDE TU VEHÍCULO" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="comprVehi" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cambiarComprarVehi" prefHeight="32.0" prefWidth="168.0" text="COMPRAR VEHÍCULOS" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+            <Button fx:id="comprVehi" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cambiarComprarVehi" prefHeight="32.0" prefWidth="168.0" text="  COMPRAR VEHÍCULOS" GridPane.halignment="CENTER" GridPane.rowIndex="6">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" stylesheets="@css/fondo.css" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
                <children>
-                  <Button fx:id="IZQ" mnemonicParsing="false" onAction="#moverIzq" stylesheets="@css/botones.css" text="🢀">
+                  <Button fx:id="IZQ" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#moverIzq" text="🢀">
                      <padding>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                      </padding>
@@ -91,10 +91,13 @@
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <ImageView fx:id="foto" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-                        <Label fx:id="descripcion" text="Descripción Carro" textFill="#363062" />
+                        <Label fx:id="descripcion" text="Descripción Carro" textFill="#363062">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
                      </children>
                   </VBox>
-                  <Button fx:id="DER" mnemonicParsing="false" onAction="#moverDer" stylesheets="@css/botones.css" text="🢂">
+                  <Button fx:id="DER" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#moverDer" text="🢂">
                      <padding>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
                      </padding>
@@ -107,7 +110,7 @@
                   <Insets />
                </GridPane.margin>
             </HBox>
-            <Button fx:id="editarVehi" mnemonicParsing="false" onAction="#cambiarEditarVehi" prefHeight="32.0" prefWidth="168.0" text="EDITA TUS VEHÍCULOs" GridPane.rowIndex="2">
+            <Button fx:id="editarVehi" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cambiarEditarVehi" prefHeight="32.0" prefWidth="168.0" text="  EDITA TUS VEHÍCULOS" GridPane.rowIndex="2">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

@@ -48,7 +48,9 @@ public class EditarCuentaController{
     public void setUsuario(User user) {
         usuario=user;
         nomtxt.setText(usuario.getNombres()+" "+usuario.getApellidos());
+        nomtxt.setStyle("-fx-background-color: lightgray;");
         mailtxt.setText(usuario.getCorreo());
+        mailtxt.setStyle("-fx-background-color: lightgray;");
     }    
 
     @FXML

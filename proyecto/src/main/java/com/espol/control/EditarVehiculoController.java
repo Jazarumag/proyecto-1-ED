@@ -125,9 +125,12 @@ public class EditarVehiculoController implements Initializable{
     }
     @FXML
     private void botoneditar(){
-        kilo.setStyle("-fx-background-color: white;");
-        ubi.setStyle("-fx-background-color: white;");
-        precio.setStyle("-fx-background-color: white;");
+        kilo.setStyle("-fx-background-color: #A8DFF6;");
+        ubi.setStyle("-fx-background-color: #A8DFF6;");
+        precio.setStyle("-fx-background-color: #A8DFF6;");
+        kilo.setStyle("-fx-text-fill: black;");
+        ubi.setStyle("-fx-text-fill: black;");
+        precio.setStyle("-fx-text-fill: black;");
         seteditar(true);
     }
     @FXML

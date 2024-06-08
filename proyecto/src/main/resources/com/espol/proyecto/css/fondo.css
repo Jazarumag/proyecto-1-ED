@@ -1,0 +1,51 @@
+.root {
+    -fx-background-color: #F3F1ED;
+}
+.label {
+    -fx-text-fill: #003D7B;
+}
+.button {
+    -fx-text-fill: #F3F1ED;
+    -fx-background-color: #0082BA;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-padding: 10 20 10 10;
+    -fx-alignment: center;
+}
+.text-field {
+    -fx-background-color: #A8DFF6;
+    -fx-text-fill: black;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+.choice-box {
+    -fx-background-color: #0082BA;
+    -fx-text-fill: white;
+    -fx-border-color: #0082BA;
+}
+.choice-box .list-cell {
+    -fx-background-color: blue;
+    -fx-text-fill: yellow;
+}
+.combo-box {
+    -fx-background-color: #0082BA;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-color: #0082BA;
+}
+.combo-box .list-cell {
+    -fx-background-color: #0082BA;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+.check-box {
+    -fx-mark-color: #2F99C6;
+    -fx-text-fill: #003D7B;
+}
+.check-box .box {
+    -fx-background-color: #2F99C6;
+    -fx-border-color: #0082BA;
+}
+.check-box .mark {
+    -fx-stroke-width: 10;
+}

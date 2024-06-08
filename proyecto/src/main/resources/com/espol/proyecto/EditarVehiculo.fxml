@@ -9,8 +9,9 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.EditarVehiculoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@css/fondo.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.EditarVehiculoController">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -32,31 +33,49 @@
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Label>
             <Label fx:id="peso" text="PESO" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Label>
             <Label text="Kilometraje:" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Label>
             <Label text="Ubicación:" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Label>
             <Label fx:id="marcamodeloano" text="MARCA,MODELO.ANO">
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Label>
             <Label text="Precio ($):" GridPane.rowIndex="5">
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
             </Label>
             <TextField fx:id="kilo" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
@@ -98,18 +117,24 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="Volver" mnemonicParsing="false" onAction="#cambiarPantallaUsua" text="Menu Principal">
+            <Button fx:id="Volver" mnemonicParsing="false" onAction="#cambiarPantallaUsua" text=" Menu Principal">
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="EditaVehiculo" mnemonicParsing="false" onAction="#botoneditar" text="Editar Vehiculo" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+            <Button fx:id="EditaVehiculo" mnemonicParsing="false" onAction="#botoneditar" text="  Editar Vehiculo" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </Button>
-            <Label fx:id="saludo" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+            <Label fx:id="saludo" text="Label" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
          </children>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
       </GridPane>
    </top>
    <bottom>
@@ -122,17 +147,20 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="guardar" mnemonicParsing="false" onAction="#guardarCambios" text="Guardar Cambios" GridPane.columnIndex="1">
+            <Button fx:id="guardar" mnemonicParsing="false" onAction="#guardarCambios" text="  Guardar Cambios" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="15.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarVehiculo" text="Eliminar Vehiculo" GridPane.halignment="RIGHT">
+            <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarVehiculo" text="  Eliminar Vehiculo" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets right="15.0" />
                </GridPane.margin>
             </Button>
          </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin>
       </GridPane>
    </bottom>
 </BorderPane>

@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="631.0" style="-fx-background-color: #DAC0A3;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.PrimaryController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="483.0" prefWidth="631.0" stylesheets="@css/fondo.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.PrimaryController">
    <center>
-      <GridPane maxWidth="1000.0" styleClass="grid-pane" stylesheets="@css/gridpane.css" BorderPane.alignment="CENTER">
+      <GridPane maxWidth="1000.0" stylesheets="@css/fondo.css" BorderPane.alignment="CENTER">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -46,7 +46,7 @@
       </GridPane>
    </center>
    <bottom>
-      <GridPane styleClass="grid-pane" stylesheets="@css/gridpane.css" BorderPane.alignment="CENTER">
+      <GridPane stylesheets="@css/fondo.css" BorderPane.alignment="CENTER">
         <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -61,12 +61,12 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="botonLoggear" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loggearse" stylesheets="@css/botones.css" text="Iniciar Sesión" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+            <Button fx:id="botonLoggear" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loggearse" text="  Iniciar Sesión" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Button>
-            <Button fx:id="botonRegistrar" mnemonicParsing="false" onAction="#registrarUsuario" stylesheets="@css/botones.css" text="Regístrate" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
+            <Button fx:id="botonRegistrar" mnemonicParsing="false" onAction="#registrarUsuario" text="  Regístrate" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -80,19 +80,19 @@
       </GridPane>
    </bottom>
    <top>
-      <GridPane maxWidth="1000.0" styleClass="grid-pane" stylesheets="@css/gridpane.css" BorderPane.alignment="CENTER">
+      <GridPane maxWidth="1000.0" stylesheets="@css/fondo.css" BorderPane.alignment="CENTER">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="206.4" minWidth="10.0" prefWidth="128.79998779296875" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="432.8" minWidth="10.0" prefWidth="370.1999755859376" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.60003662109375" minWidth="10.0" prefWidth="132.60002441406255" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="25.0" minHeight="9.0" prefHeight="9.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="37.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="44.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Garaje Tornillo EC" textFill="#363062" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+            <Label text="GARAJE TORNILLO EC" textFill="#363062" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -102,7 +102,7 @@
                   <Image url="@files/GarajeTuercaLogo.png" />
                </image>
                <GridPane.margin>
-                  <Insets top="65.0" />
+                  <Insets bottom="5.0" top="65.0" />
                </GridPane.margin>
             </ImageView>
          </children>

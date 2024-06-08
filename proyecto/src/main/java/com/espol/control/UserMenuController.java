@@ -147,6 +147,6 @@ public class UserMenuController {
             System.err.println("URL de imagen no válida o recurso no encontrado: " + carrito.getFoto());
             e.printStackTrace();
         }
-        descripcion.setText(carrito.getPlaca()+" "+carrito.getModelo()+" "+carrito.getMarca());
+        descripcion.setText("$ "+carrito.getPrecio()+" "+carrito.getMarca()+" "+carrito.getModelo());
     }
 }
