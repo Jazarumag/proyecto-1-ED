@@ -90,9 +90,9 @@ public class UserMenuController {
     }
     @FXML
     private void cambiarComprarVehi(ActionEvent event) throws IOException{
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/espol/proyecto/ComprarVehiculo.fxml"));
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/espol/proyecto/FiltrarVehiculo.fxml"));
         Parent root = (Parent) loader.load();
-        ComprarVehiculoController vehiculoControlador=loader.getController();
+        FiltrarVehiculoController vehiculoControlador=loader.getController();
         vehiculoControlador.setUsuario(usuario);
         Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
         Scene escena=new Scene(root);

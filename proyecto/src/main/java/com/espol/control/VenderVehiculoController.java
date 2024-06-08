@@ -5,7 +5,6 @@
 package com.espol.control;
 
 import com.espol.estructuras.ArrayListZ;
-import com.espol.modelo.TipoVehiculo;
 import com.espol.modelo.Transmision;
 import com.espol.modelo.User;
 import com.espol.modelo.Utilitaria;

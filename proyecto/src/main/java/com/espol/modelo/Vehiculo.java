@@ -137,9 +137,7 @@ public class Vehiculo implements Serializable{
         if(this==o)
             return true;
         Vehiculo other=(Vehiculo) o;
-        if(this.placa.equals(other.placa))
-            return true;
-        return false;
+        return this.placa.equals(other.placa);
     }
 
     @Override
