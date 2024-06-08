@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.EditarVehiculoController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.EditarVehiculoController">
    <center>
       <GridPane BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -74,12 +74,12 @@
                </GridPane.margin>
             </TextField>
             <ImageView fx:id="fotocarro" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-            <Button fx:id="IZQ" mnemonicParsing="false" onAction="#moverIzq" text="Button" GridPane.rowIndex="7">
+            <Button fx:id="IZQ" mnemonicParsing="false" onAction="#moverIzq" text="&lt;--" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
             </Button>
-            <Button fx:id="DER" mnemonicParsing="false" onAction="#moverDer" text="Button" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+            <Button fx:id="DER" mnemonicParsing="false" onAction="#moverDer" text="--&gt;" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
                <GridPane.margin>
                   <Insets left="20.0" right="20.0" />
                </GridPane.margin>
@@ -127,7 +127,7 @@
                   <Insets left="15.0" />
                </GridPane.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Eliminar Vehiculo" GridPane.halignment="RIGHT">
+            <Button fx:id="btnEliminar" mnemonicParsing="false" onAction="#eliminarVehiculo" text="Eliminar Vehiculo" GridPane.halignment="RIGHT">
                <GridPane.margin>
                   <Insets right="15.0" />
                </GridPane.margin>

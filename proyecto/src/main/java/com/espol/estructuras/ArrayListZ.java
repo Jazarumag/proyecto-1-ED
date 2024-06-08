@@ -284,4 +284,14 @@ public class ArrayListZ<E> implements List<E>, Serializable {
         Object[] array = sublista.toArray();
         return Arrays.toString(array);
     }
+    
+    public boolean replace(E element) {
+        for (int i = 0; i < this.size(); i++) {
+            if (this.get(i).equals(element)) {
+                this.set(i, element);
+                return true;
+            }
+        }
+        return false;
+    }
 }

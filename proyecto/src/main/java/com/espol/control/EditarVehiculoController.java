@@ -53,9 +53,12 @@ public class EditarVehiculoController implements Initializable{
     @FXML
     private ImageView fotocarro;
     @FXML
+    private Button btnEliminar;
+    @FXML
     private Button IZQ;
     @FXML
     private Button DER;
+    
     private User usuario;
     private CircleLinkedListZ<Vehiculo> carros;
     private int index=0;
@@ -156,7 +159,42 @@ public class EditarVehiculoController implements Initializable{
             kilo.setStyle("-fx-background-color: lightgray;");
             ubi.setStyle("-fx-background-color: lightgray;");
             precio.setStyle("-fx-background-color: lightgray;");
-            // Resto del codigo
+            
+            Vehiculo editado = carros.get(index);
+        
+            editado.setKilometraje(Integer.parseInt(kilo.getText()));
+            editado.setUbicacion(ubi.getText());
+            editado.setPrecio(Integer.parseInt(precio.getText()));
+
+            ArrayListZ<Vehiculo> vehiculos = Vehiculo.readListFileSer("vehiculos.ser");
+
+            vehiculos.replace(editado);
+
+            Vehiculo.saveListFileSer("vehiculos.ser", vehiculos);
+
+            Alert alertaExito = new Alert(Alert.AlertType.INFORMATION, "Cambios guardados exitosamente.");
+            alertaExito.showAndWait();
+        }
+    }
+    @FXML
+    private void eliminarVehiculo(){
+        Alert alertaEliminar = new Alert(Alert.AlertType.CONFIRMATION,"¿Está seguro de eliminar este vehículo?");
+        if(alertaEliminar.showAndWait().get()==ButtonType.OK){
+            Vehiculo eliminado = carros.get(index);
+
+            ArrayListZ<Vehiculo> vehiculos = Vehiculo.readListFileSer("vehiculos.ser");
+
+            vehiculos.remove(eliminado);
+
+            Vehiculo.saveListFileSer("vehiculos.ser", vehiculos);
+
+            carros.remove(eliminado);
+            if (!carros.isEmpty()) {
+                if (index >= carros.size()) {
+                    index = 0;
+                }
+                mostrarInformacionVehiculo(carros.get(index));
+            }
         }
     }
 }
