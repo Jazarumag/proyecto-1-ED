@@ -44,7 +44,7 @@ public class Vehiculo implements Serializable{
         this.ubicacion = ubicacion;
         this.userID = userID;
     }
-    
+
     public String getPlaca(){
         return placa;
     }

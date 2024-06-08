@@ -2,6 +2,7 @@ package com.espol.proyecto;
 
 import com.espol.estructuras.ArrayListZ;
 import com.espol.modelo.User;
+import com.espol.modelo.Vehiculo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -64,7 +65,9 @@ public class App extends Application {
         System.out.println(Arrays.toString(lista.arreglo));
         lista.remove("Hello");
         System.out.println(Arrays.toString(lista.arreglo));
-        
+        for (Vehiculo i: Vehiculo.readListFileSer("vehiculos.ser")){
+            System.out.println(i);
+        }
         launch();
     }
 

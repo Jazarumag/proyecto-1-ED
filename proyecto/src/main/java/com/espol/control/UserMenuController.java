@@ -37,6 +37,8 @@ public class UserMenuController {
     private Button regisVehi;
     @FXML
     private Button comprVehi;
+    @FXML
+    private Button editarVehi;
 
     private User usuario;
     private int index;
@@ -95,7 +97,18 @@ public class UserMenuController {
         stage.setScene(escena);
         stage.show();
     }
-
+    
+    @FXML
+    private void cambiarEditarVehi(ActionEvent event) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto/EditarVehiculo.fxml"));
+        Parent root = (Parent) loader.load();
+        EditarVehiculoController vehiculoControlador = loader.getController();
+        vehiculoControlador.setUsuario(usuario);
+        Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene escena=new Scene(root);
+        stage.setScene(escena);
+        stage.show();
+    }
     @FXML
     private void verPerfil(ActionEvent event) throws IOException{
         FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/espol/proyecto/EditarCuenta.fxml"));
