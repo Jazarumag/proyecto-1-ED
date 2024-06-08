@@ -57,4 +57,45 @@ public class Utilitaria {
          }
          return null;
     }
+    
+    public static ArrayListZ<Vehiculo> filtrarVehiculos(ArrayListZ<Vehiculo> vehiculos, String parametro, String datos){
+        ArrayListZ<Vehiculo> retorno=new ArrayListZ<>();
+        switch(parametro){
+//            case "tipo":
+//                for(Vehiculo vehiculo:vehiculos){
+//                    if(String.valueOf(vehiculo.getTipo()).equals(datos))
+//                        retorno.add(vehiculo);
+//                }
+//                break;
+                
+            case "recorrido":
+                double inicioRecorrido=Double.parseDouble(datos.split("-")[0]);
+                double finRecorrido=Double.parseDouble(datos.split("-")[1]);
+                for(Vehiculo vehiculo:vehiculos){
+                    if(vehiculo.getKilometraje()>=inicioRecorrido && vehiculo.getKilometraje()<=finRecorrido)
+                        retorno.add(vehiculo);
+                }
+                break;
+                
+            case "anio":
+                int inicioAnio=Integer.parseInt(datos.split("-")[0]);
+                int finAnio=Integer.parseInt(datos.split("-")[1]);
+                for(Vehiculo vehiculo:vehiculos){
+                    if(Integer.parseInt(vehiculo.getAno())>=inicioAnio && Integer.parseInt(vehiculo.getAno())<=finAnio)
+                        retorno.add(vehiculo);
+                }
+                break;
+                
+            case "precio":
+                double inicioPrecio=Double.parseDouble(datos.split("-")[0]);
+                double finPrecio=Double.parseDouble(datos.split("-")[1]);
+                for(Vehiculo vehiculo:vehiculos){
+                    if(vehiculo.getPrecio()>=inicioPrecio && vehiculo.getPrecio()<=finPrecio)
+                        retorno.add(vehiculo);
+                }
+                break;
+                
+        }
+        return retorno;
+    }
 }
