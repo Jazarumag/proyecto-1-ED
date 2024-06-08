@@ -18,7 +18,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -27,13 +29,15 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author Usuario
+ * @author joshz
  */
 public class EditarVehiculoController implements Initializable{
     @FXML
     private Button Volver;
     @FXML
     private Button EditaVehiculo;
+    @FXML
+    private Label saludo;
     @FXML
     private Label marcamodeloano;
     @FXML
@@ -48,8 +52,13 @@ public class EditarVehiculoController implements Initializable{
     private TextField precio;
     @FXML
     private ImageView fotocarro;
+    @FXML
+    private Button IZQ;
+    @FXML
+    private Button DER;
     private User usuario;
     private CircleLinkedListZ<Vehiculo> carros;
+    private int index=0;
     
     public void setUsuario(User usuario){
         this.usuario=usuario;
@@ -69,9 +78,6 @@ public class EditarVehiculoController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        kilo.setEditable(false);
-        ubi.setEditable(false);
-        precio.setEditable(false);
         ArrayListZ<Vehiculo> lcarros = Vehiculo.readListFileSer("vehiculos.ser");
         carros = new CircleLinkedListZ<>();
         for (Vehiculo i : lcarros){
@@ -87,6 +93,9 @@ public class EditarVehiculoController implements Initializable{
             mostrarInformacionVehiculo(carros.get(0));
         }
     }
+    public void mostrarUsuarioo(String nombre){
+        saludo.setText("Hola, "+nombre);
+    }
     private void mostrarInformacionVehiculo(Vehiculo vehiculo) {
         marcamodeloano.setText(vehiculo.getMarca() + " " + vehiculo.getModelo() + " " + vehiculo.getAno());
         placamotortrans.setText("Placa: " + vehiculo.getPlaca() + "\nMotor: " + vehiculo.getMotor() + "\nTransmisión: " + vehiculo.getTransmision());
@@ -100,6 +109,54 @@ public class EditarVehiculoController implements Initializable{
         } catch (IllegalArgumentException e) {
             System.err.println("URL de imagen no válida o recurso no encontrado: " + vehiculo.getFoto());
             e.printStackTrace();
+        }
+        seteditar(false);
+        kilo.setStyle("-fx-background-color: lightgray;");
+        ubi.setStyle("-fx-background-color: lightgray;");
+        precio.setStyle("-fx-background-color: lightgray;");
+    }
+    private void seteditar(boolean a){
+        kilo.setEditable(a);
+        ubi.setEditable(a);
+        precio.setEditable(a);
+    }
+    @FXML
+    private void botoneditar(){
+        kilo.setStyle("-fx-background-color: white;");
+        ubi.setStyle("-fx-background-color: white;");
+        precio.setStyle("-fx-background-color: white;");
+        seteditar(true);
+    }
+    @FXML
+    private void moverDer(){
+        index++;
+        CarruselCarros();
+    }
+    @FXML
+    private void moverIzq(){
+        index--;
+        CarruselCarros();
+    }
+    private void CarruselCarros(){
+        CircleLinkedListZ<Vehiculo> carrusel = new CircleLinkedListZ<>();
+        ArrayListZ<Vehiculo> a = Vehiculo.readListFileSer("vehiculos.ser");
+        carrusel.addAll(a);
+        Vehiculo carrito = carrusel.get(index);
+        mostrarInformacionVehiculo(carrito);
+        seteditar(false);
+        kilo.setStyle("-fx-background-color: lightgray;");
+        ubi.setStyle("-fx-background-color: lightgray;");
+        precio.setStyle("-fx-background-color: lightgray;");
+    }
+    @FXML
+    private void guardarCambios(){
+        Alert alertaLogout = new Alert(Alert.AlertType.CONFIRMATION,"¿Quiere Guardar los cambios?");
+        if(alertaLogout.showAndWait().get()==ButtonType.OK){
+            seteditar(false);
+            kilo.setStyle("-fx-background-color: lightgray;");
+            ubi.setStyle("-fx-background-color: lightgray;");
+            precio.setStyle("-fx-background-color: lightgray;");
+            // Resto del codigo
         }
     }
 }

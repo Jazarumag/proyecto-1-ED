@@ -39,6 +39,8 @@ public class UserMenuController {
     private Button comprVehi;
     @FXML
     private Button editarVehi;
+    @FXML
+    private Button guardar;
 
     private User usuario;
     private int index;
@@ -103,6 +105,7 @@ public class UserMenuController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto/EditarVehiculo.fxml"));
         Parent root = (Parent) loader.load();
         EditarVehiculoController vehiculoControlador = loader.getController();
+        vehiculoControlador.mostrarUsuarioo(usuario.getNombres());
         vehiculoControlador.setUsuario(usuario);
         Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
         Scene escena=new Scene(root);
