@@ -5,6 +5,7 @@
 package com.espol.control;
 
 import com.espol.estructuras.ArrayListZ;
+import com.espol.modelo.Historial;
 import com.espol.modelo.TipoAuto;
 import com.espol.modelo.Transmision;
 import com.espol.modelo.User;
@@ -81,6 +82,10 @@ public class VenderVehiculoController implements Initializable{
     private TextField tfUbicacion;
     @FXML
     private TextField tfPlaca;
+    @FXML
+    private ComboBox<String> cbMantenimiento;
+    @FXML
+    private TextField tfAccidentes;
     
     private User usuario;
     private ArrayListZ<User> usuarios; //esto se usa para luego sacar el id de usuario
@@ -95,7 +100,9 @@ public class VenderVehiculoController implements Initializable{
     public void initialize(URL url,ResourceBundle rb){
         TipoAuto[] tipo={TipoAuto.CAMIONETA,TipoAuto.CONVERTIBLE,TipoAuto.DEPORTIVO,TipoAuto.ELECTRICO,TipoAuto.FAMILIAR,TipoAuto.HATCHBACK,TipoAuto.HIBRIDO,TipoAuto.LIMOSINA,TipoAuto.SEDAN,TipoAuto.SUV,TipoAuto.TODOTERRENO,TipoAuto.VAN};
         cbTipoAuto.getItems().addAll(tipo);
-                
+        
+        cbMantenimiento.getItems().addAll("SI","NO");
+        
         Transmision[] t={Transmision.MANUAL,Transmision.AUTOMATICO};
         cbTransmision.getItems().addAll(t);
         usuarios=User.readListFileSer("usuarios.ser");
@@ -136,8 +143,14 @@ public class VenderVehiculoController implements Initializable{
                 Transmision transmision = cbTransmision.getValue();
                 TipoAuto tipoAuto=cbTipoAuto.getValue();
                 String ubicacion = tfUbicacion.getText();
+                
+                int accidentes=Integer.parseInt(tfAccidentes.getText());
+                boolean mantenimiento=false;
+                if(cbMantenimiento.getValue().toUpperCase().equals("SI")) mantenimiento=true;
+                else if(!cbMantenimiento.getValue().toUpperCase().equals("NO")) throw new NumberFormatException();
 
                 Vehiculo vehiculo = new Vehiculo(placa, tipoAuto, precio, km, peso, marca, modelo, anio, motor, transmision, ubicacion, usuario.getID());
+                vehiculo.setHistorial(new Historial(accidentes,mantenimiento));
                 System.out.println(vehiculo);
 
                 if (imagenElegida != null) {

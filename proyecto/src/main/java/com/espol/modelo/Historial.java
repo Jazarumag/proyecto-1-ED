@@ -9,5 +9,18 @@ package com.espol.modelo;
  * @author joshz
  */
 public class Historial {
+    private int nAccidentes;
+    private boolean mantenimientoAlDia;
     
+    public Historial(){}
+    
+    public Historial(int n, boolean m){
+        this.nAccidentes=n;
+        this.mantenimientoAlDia=m;
+    }
+    
+    @Override
+    public String toString(){
+        return "(Accidentes: "+nAccidentes+" | Mantenimiento al dia: "+this.mantenimientoAlDia+")";
+    }
 }
