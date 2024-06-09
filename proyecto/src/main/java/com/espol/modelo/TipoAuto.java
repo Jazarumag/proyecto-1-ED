@@ -8,8 +8,17 @@ package com.espol.modelo;
  *
  * @author luisa
  */
-public enum TipoVehiculo {
-    MOTO,
-    CARRO,
-    CAMIONETA
+public enum TipoAuto {
+    SEDAN,
+    FAMILIAR,   
+    SUV,
+    VAN,
+    HATCHBACK,
+    CONVERTIBLE,
+    ELECTRICO,
+    HIBRIDO,
+    CAMIONETA,
+    TODOTERRENO,
+    DEPORTIVO,
+    LIMOSINA
 }

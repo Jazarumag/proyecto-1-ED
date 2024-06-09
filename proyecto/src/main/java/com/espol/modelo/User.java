@@ -19,7 +19,7 @@ import java.io.Serializable;
 public class User implements Serializable{
     
     private static final long serialVersionUID=1L;
-    private int id;
+    private String id;
     private String nombres;
     private String apellidos;
     private String correo;
@@ -39,7 +39,7 @@ public class User implements Serializable{
         return vehiculosEnVenta;
     }
     
-    public int getID(){
+    public String getID(){
         return this.id;
     }
     
@@ -116,7 +116,7 @@ public class User implements Serializable{
         if(this==o)
             return true;
         User other=(User) o;
-        if(this.id==other.id)
+        if(this.id.equals(other.id))
             return true;
         return false;
     }

@@ -18,35 +18,47 @@ import java.io.Serializable;
  */
 public class Vehiculo implements Serializable{
     private String placa;
+    private TipoAuto tipoAuto;
     private int precio, kilometraje, peso;
-    private String marca, modelo, ano;
+    private String marca, modelo, anio;
     private String motor;
     private Transmision transmision; //Manual o Automatico
     private String ubicacion;
     private Historial historial;
     // Usuario
     private String userID;
-    // Foto
+    // Fotos
     private String foto;
+    private ArrayListZ<String> fotos;
 
-    public Vehiculo(String placa, int precio, int kilometraje,
-            int peso, String marca, String modelo, String ano,
+    public Vehiculo(String placa, TipoAuto tipoAuto, int precio, int kilometraje,
+            int peso, String marca, String modelo, String anio,
             String motor, Transmision transmision, String ubicacion, String userID) {
         this.placa = placa;
+        this.tipoAuto=tipoAuto;
         this.precio = precio;
         this.kilometraje = kilometraje;
         this.peso = peso;
         this.marca = marca;
         this.modelo = modelo;
-        this.ano = ano;
+        this.anio = anio;
         this.motor = motor;
         this.transmision = transmision;
         this.ubicacion = ubicacion;
         this.userID = userID;
+        this.fotos=new ArrayListZ<>();
     }
 
+    public String getUserId(){
+        return this.userID;
+    }
+    
     public String getPlaca(){
         return placa;
+    }
+    
+    public TipoAuto getTipoAuto(){
+        return this.tipoAuto;
     }
     
     public void setPlaca(String placa){
@@ -75,7 +87,7 @@ public class Vehiculo implements Serializable{
         return modelo;
     }
     public String getAno() {
-        return ano;
+        return anio;
     }
     public String getMotor() {
         return motor;
@@ -91,6 +103,10 @@ public class Vehiculo implements Serializable{
     }
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
+    }
+    
+    public ArrayListZ<String> getFotos(){
+        return this.fotos;
     }
     
     public String getFoto(){
@@ -142,7 +158,7 @@ public class Vehiculo implements Serializable{
 
     @Override
     public String toString() {
-        return "Vehiculo{" + "placa=" + placa + ", precio=" + precio + ", kilometraje=" + kilometraje + ", peso=" + peso + ", marca=" + marca + ", modelo=" + modelo + ", ano=" + ano + ", motor=" + motor + ", transmision=" + transmision + ", ubicacion=" + ubicacion + ", historial=" + historial + ", userID=" + userID + ", foto=" + foto + '}';
+        return "Vehiculo{" + "placa=" + placa + ", precio=" + precio + ", kilometraje=" + kilometraje + ", peso=" + peso + ", marca=" + marca + ", modelo=" + modelo + ", ano=" + anio + ", motor=" + motor + ", transmision=" + transmision + ", ubicacion=" + ubicacion + ", historial=" + historial + ", userID=" + userID + ", foto=" + foto + '}';
     }
     
 }

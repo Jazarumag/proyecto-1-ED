@@ -49,7 +49,7 @@ public class CircleLinkedListZ<E> implements List<E> {
     @Override
     public boolean contains(Object o) {
         Node prim = primero;
-        if (prim == null) return false;
+        if (isEmpty()) return false;
         do {
             if (prim.contenido.equals(o)) {
                 return true;

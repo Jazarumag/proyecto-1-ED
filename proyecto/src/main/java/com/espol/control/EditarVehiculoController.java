@@ -63,8 +63,17 @@ public class EditarVehiculoController implements Initializable{
     private CircleLinkedListZ<Vehiculo> carros;
     private int index=0;
     
-    public void setUsuario(User usuario){
-        this.usuario=usuario;
+    public void setUsuario(User u){
+        this.usuario=u;
+        ArrayListZ<Vehiculo> lcarros = Vehiculo.readListFileSer("vehiculos.ser");
+        for (Vehiculo i : lcarros){
+            if (i.getUserId().equals(u.getID())){
+                carros.add(i);
+            }
+        }
+        if (!carros.isEmpty()) {
+            mostrarInformacionVehiculo(carros.get(0));
+        }
     }
     @FXML
     private void cambiarPantallaUsua(ActionEvent event) throws IOException{
@@ -81,21 +90,10 @@ public class EditarVehiculoController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ArrayListZ<Vehiculo> lcarros = Vehiculo.readListFileSer("vehiculos.ser");
+        System.out.println(usuario);
         carros = new CircleLinkedListZ<>();
-        for (Vehiculo i : lcarros){
-            
-            /*if (i.getUserID().equals(String.valueOf(usuario.getID()))){
-                carros.add(i);
-            }*/
-        }
-        carros.add(lcarros.get(0));
-        carros.add(lcarros.get(1));
-        carros.add(lcarros.get(2));
-        if (!carros.isEmpty()) {
-            mostrarInformacionVehiculo(carros.get(0));
-        }
     }
+    
     public void mostrarUsuarioo(String nombre){
         saludo.setText("Hola, "+nombre);
     }

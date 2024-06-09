@@ -14,7 +14,7 @@ import java.io.ObjectInputStream;
  * @author luisa
  */
 public class Utilitaria {
-    public static int generarID(String nomfile){
+    public static String generarID(String nomfile){
         int id=1;
         try(ObjectInputStream in=new ObjectInputStream(new FileInputStream(nomfile))){
             id=((ArrayListZ<Object>)in.readObject()).size()+1;
@@ -28,7 +28,7 @@ public class Utilitaria {
         catch(Exception d){
             System.out.println(d.getMessage());
         }
-        return id;
+        return String.valueOf(id);
     }
     
     public static User obtenerUsuario(String correo, String clave){   

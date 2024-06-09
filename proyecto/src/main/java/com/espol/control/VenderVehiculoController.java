@@ -5,6 +5,7 @@
 package com.espol.control;
 
 import com.espol.estructuras.ArrayListZ;
+import com.espol.modelo.TipoAuto;
 import com.espol.modelo.Transmision;
 import com.espol.modelo.User;
 import com.espol.modelo.Utilitaria;
@@ -51,6 +52,8 @@ public class VenderVehiculoController implements Initializable{
     @FXML
     private Button botontr;
     @FXML
+    private ComboBox<TipoAuto> cbTipoAuto;
+    @FXML
     private ComboBox<Transmision> cbTransmision;
     @FXML
     private GridPane cj;
@@ -90,6 +93,9 @@ public class VenderVehiculoController implements Initializable{
  
     @Override
     public void initialize(URL url,ResourceBundle rb){
+        TipoAuto[] tipo={TipoAuto.CAMIONETA,TipoAuto.CONVERTIBLE,TipoAuto.DEPORTIVO,TipoAuto.ELECTRICO,TipoAuto.FAMILIAR,TipoAuto.HATCHBACK,TipoAuto.HIBRIDO,TipoAuto.LIMOSINA,TipoAuto.SEDAN,TipoAuto.SUV,TipoAuto.TODOTERRENO,TipoAuto.VAN};
+        cbTipoAuto.getItems().addAll(tipo);
+                
         Transmision[] t={Transmision.MANUAL,Transmision.AUTOMATICO};
         cbTransmision.getItems().addAll(t);
         usuarios=User.readListFileSer("usuarios.ser");
@@ -116,75 +122,76 @@ public class VenderVehiculoController implements Initializable{
     }
 
     @FXML
-private void registrar(ActionEvent event) throws IOException {
-    String placa = tfPlaca.getText();
-    if (Utilitaria.obtenerVehiculoPorPlaca(placa) == null) { 
-        try {
-            int precio = Integer.parseInt(tfPrecio.getText());
-            int km = Integer.parseInt(tfKm.getText());
-            int peso = Integer.parseInt(tfPeso.getText());
-            String marca = tfMarca.getText();
-            String modelo = tfModelo.getText();
-            String anio = tfAnio.getText();
-            String motor = tfMotor.getText();
-            Transmision transmision = cbTransmision.getValue();
-            String ubicacion = tfUbicacion.getText();
+    private void registrar(ActionEvent event) throws IOException {
+        String placa = tfPlaca.getText();
+        if (Utilitaria.obtenerVehiculoPorPlaca(placa) == null) { 
+            try {
+                int precio = Integer.parseInt(tfPrecio.getText());
+                int km = Integer.parseInt(tfKm.getText());
+                int peso = Integer.parseInt(tfPeso.getText());
+                String marca = tfMarca.getText();
+                String modelo = tfModelo.getText();
+                String anio = tfAnio.getText();
+                String motor = tfMotor.getText();
+                Transmision transmision = cbTransmision.getValue();
+                TipoAuto tipoAuto=cbTipoAuto.getValue();
+                String ubicacion = tfUbicacion.getText();
 
-            Vehiculo vehiculo = new Vehiculo(placa, precio, km, peso, marca, modelo, anio, motor, transmision, ubicacion, String.valueOf(usuario.getID()));
-            System.out.println(vehiculo);
+                Vehiculo vehiculo = new Vehiculo(placa, tipoAuto, precio, km, peso, marca, modelo, anio, motor, transmision, ubicacion, usuario.getID());
+                System.out.println(vehiculo);
 
-            if (imagenElegida != null) {
-                try {
-                    Path destPath;
-                    String relativePath;
+                if (imagenElegida != null) {
+                    try {
+                        Path destPath;
+                        String relativePath;
 
-                    if (getClass().getProtectionDomain().getCodeSource().getLocation().getPath().endsWith(".jar")) {
-                        String jarDir = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
-                        destPath = Paths.get(jarDir, "imgs", imagenElegida.getName());
-                        relativePath = "imgs/" + imagenElegida.getName();
-                    } else {
-                        destPath = Paths.get("src", "main", "resources", "imgs", imagenElegida.getName());
-                        relativePath = "src/main/resources/imgs/" + imagenElegida.getName();
+                        if (getClass().getProtectionDomain().getCodeSource().getLocation().getPath().endsWith(".jar")) {
+                            String jarDir = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
+                            destPath = Paths.get(jarDir, "imgs", imagenElegida.getName());
+                            relativePath = "imgs/" + imagenElegida.getName();
+                        } else {
+                            destPath = Paths.get("src", "main", "resources", "imgs", imagenElegida.getName());
+                            relativePath = "src/main/resources/imgs/" + imagenElegida.getName();
+                        }
+
+                        Files.createDirectories(destPath.getParent());
+                        Files.copy(imagenElegida.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
+
+                        ArrayListZ<Vehiculo> vehis = Vehiculo.readListFileSer("vehiculos.ser");
+                        vehiculo.setFoto(relativePath);
+
+                        vehis.add(vehiculo);
+                        Vehiculo.saveListFileSer("vehiculos.ser", vehis);
+                        usuario.getVehiculos().add(vehiculo);
+                        int indice = usuarios.indexOf(usuario);
+                        if (indice != -1) {
+                            usuarios.set(indice, usuario);
+                        }
+                        User.saveListFileSer("usuarios.ser", usuarios);
+
+                        Alert alerta = new Alert(Alert.AlertType.INFORMATION, "Vehículo registrado correctamente");
+                        alerta.show();
+                        cambiarPantallaUsua(event);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        Alert a = new Alert(Alert.AlertType.ERROR, "Error al subir la imagen: " + e.getMessage());
+                        a.show();
                     }
-
-                    Files.createDirectories(destPath.getParent());
-                    Files.copy(imagenElegida.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
-
-                    ArrayListZ<Vehiculo> vehis = Vehiculo.readListFileSer("vehiculos.ser");
-                    vehiculo.setFoto(relativePath);
-
-                    vehis.add(vehiculo);
-                    Vehiculo.saveListFileSer("vehiculos.ser", vehis);
-                    usuario.getVehiculos().add(vehiculo);
-                    int indice = usuarios.indexOf(usuario);
-                    if (indice != -1) {
-                        usuarios.set(indice, usuario);
-                    }
-                    User.saveListFileSer("usuarios.ser", usuarios);
-
-                    Alert alerta = new Alert(Alert.AlertType.INFORMATION, "Vehículo registrado correctamente");
-                    alerta.show();
-                    cambiarPantallaUsua(event);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Alert a = new Alert(Alert.AlertType.ERROR, "Error al subir la imagen: " + e.getMessage());
+                } else {
+                    Alert a = new Alert(Alert.AlertType.ERROR, "No ha seleccionado una imagen");
                     a.show();
                 }
-            } else {
-                Alert a = new Alert(Alert.AlertType.ERROR, "No ha seleccionado una imagen");
-                a.show();
-            }
 
-        } catch (NumberFormatException errorNum) {
-            Alert alerta = new Alert(Alert.AlertType.ERROR, "No ha ingresado datos válidos: " + errorNum.getMessage());
+            } catch (NumberFormatException errorNum) {
+                Alert alerta = new Alert(Alert.AlertType.ERROR, "No ha ingresado datos válidos: " + errorNum.getMessage());
+                alerta.show();
+            }
+        } else {
+            Alert alerta = new Alert(Alert.AlertType.ERROR, "La placa del vehículo ya está registrada");
             alerta.show();
         }
-    } else {
-        Alert alerta = new Alert(Alert.AlertType.ERROR, "La placa del vehículo ya está registrada");
-        alerta.show();
+        System.out.println(Vehiculo.readListFileSer("vehiculos.ser"));
     }
-    System.out.println(Vehiculo.readListFileSer("vehiculos.ser"));
-}
     
     @FXML
     public void subirImagen() { //esto es para subir la imagen asi que no toques nada
