@@ -54,6 +54,10 @@ public class UserMenuController implements Initializable{
     private Label descripcion;
     @FXML
     private ImageView foto;
+    @FXML
+    private ImageView fotoANTERIOR;
+    @FXML
+    private ImageView fotoSIGUIENTE;
     
     public void setCarros(ArrayListZ<Vehiculo> a){
         this.carros=a;
@@ -153,10 +157,16 @@ public class UserMenuController implements Initializable{
         ArrayListZ<Vehiculo> a = Vehiculo.readListFileSer("vehiculos.ser");
         carrusel.addAll(a);
         Vehiculo carrito = carrusel.get(index);
+        Vehiculo carritoANT = carrusel.get(index-1);
+        Vehiculo carritoSIG = carrusel.get(index+1);
         System.out.println(carrito);
         try {
             Image imagen = new Image("file:"+carrito.getFoto());
+            Image imagenANT = new Image("file:"+carritoANT.getFoto());
+            Image imagenSIG = new Image("file:"+carritoSIG.getFoto());
             foto.setImage(imagen);
+            fotoANTERIOR.setImage(imagenANT);
+            fotoSIGUIENTE.setImage(imagenSIG);
         } catch (IllegalArgumentException e) {
             System.err.println("URL de imagen no válida o recurso no encontrado: " + carrito.getFoto());
             e.printStackTrace();
