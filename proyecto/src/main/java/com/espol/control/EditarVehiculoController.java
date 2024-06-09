@@ -95,6 +95,7 @@ public class EditarVehiculoController implements Initializable{
         UserMenuController menuController=loader.getController();
         menuController.setUsuario(usuario);
         menuController.mostrarUsuario(usuario.toString());
+        menuController.setCarros(Vehiculo.readListFileSer("vehiculos.ser"));
         Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
         Scene escena=new Scene(root);
         stage.setScene(escena);

@@ -1,6 +1,7 @@
 package com.espol.control;
 
 import com.espol.modelo.User;
+import com.espol.modelo.Vehiculo;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,6 +40,7 @@ public class ComprarVehiculoController {
         UserMenuController menuController=loader.getController();
         menuController.setUsuario(usuario);
         menuController.mostrarUsuario(usuario.toString());
+        menuController.setCarros(Vehiculo.readListFileSer("vehiculos.ser"));
         Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
         Scene escena=new Scene(root);
         stage.setScene(escena);

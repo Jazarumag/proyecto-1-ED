@@ -88,6 +88,7 @@
                         <Insets left="15.0" right="15.0" />
                      </HBox.margin>
                   </Button>
+                  <ImageView fx:id="fotoANTERIOR" fitHeight="86.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" />
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
                         <ImageView fx:id="foto" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
@@ -97,6 +98,7 @@
                            </font></Label>
                      </children>
                   </VBox>
+                  <ImageView fx:id="fotoSIGUIENTE" fitHeight="85.0" fitWidth="126.0" pickOnBounds="true" preserveRatio="true" />
                   <Button fx:id="DER" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#moverDer" text="🢂">
                      <padding>
                         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
