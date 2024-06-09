@@ -46,7 +46,8 @@ public class UserMenuController implements Initializable{
     private Button guardar;
 
     private User usuario;
-    private int index;
+    private int index=-1;
+    private ArrayListZ<Vehiculo> carros;
     @FXML
     private Button botonPerfil;
     @FXML
@@ -54,10 +55,12 @@ public class UserMenuController implements Initializable{
     @FXML
     private ImageView foto;
     
-    
+    public void setCarros(ArrayListZ<Vehiculo> a){
+        this.carros=a;
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //trabaja
+        moverDer();
     }
     
     public void setUsuario(User usuario){

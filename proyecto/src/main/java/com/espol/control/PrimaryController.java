@@ -1,7 +1,9 @@
 package com.espol.control;
 
+import com.espol.estructuras.ArrayListZ;
 import com.espol.modelo.User;
 import com.espol.modelo.Utilitaria;
+import com.espol.modelo.Vehiculo;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,7 +50,7 @@ public class PrimaryController {
             UserMenuController menuControlador=loader.getController();
             menuControlador.mostrarUsuario(user.toString());
             menuControlador.setUsuario(user);
-            
+            menuControlador.setCarros(Vehiculo.readListFileSer("vehiculos.ser"));
             cambiarMenuUsuario(event, root);
         }
         else{

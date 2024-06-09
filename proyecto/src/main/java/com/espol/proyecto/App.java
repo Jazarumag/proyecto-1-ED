@@ -67,6 +67,7 @@ public class App extends Application {
         System.out.println(Arrays.toString(lista.arreglo));
         for (Vehiculo i: Vehiculo.readListFileSer("vehiculos.ser")){
             System.out.println(i);
+            System.out.println(i.getFotos());
         }
         launch();
     }

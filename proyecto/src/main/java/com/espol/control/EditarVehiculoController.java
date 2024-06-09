@@ -8,8 +8,13 @@ import com.espol.estructuras.ArrayListZ;
 import com.espol.estructuras.CircleLinkedListZ;
 import com.espol.modelo.User;
 import com.espol.modelo.Vehiculo;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,6 +30,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -58,7 +64,14 @@ public class EditarVehiculoController implements Initializable{
     private Button IZQ;
     @FXML
     private Button DER;
-    
+    @FXML
+    private Button IZQfotos;
+    @FXML
+    private Button DERfotos;
+    @FXML
+    private Button nvfotos;
+    private int indicefotos;
+    private File imagenElegida;
     private User usuario;
     private CircleLinkedListZ<Vehiculo> carros;
     private int index=0;
@@ -104,13 +117,8 @@ public class EditarVehiculoController implements Initializable{
         kilo.setText(String.valueOf(vehiculo.getKilometraje()));
         ubi.setText(vehiculo.getUbicacion());
         precio.setText(String.valueOf(vehiculo.getPrecio()));
-        try {
-            Image imagen = new Image("file:"+vehiculo.getFoto());
-            fotocarro.setImage(imagen);
-        } catch (IllegalArgumentException e) {
-            System.err.println("URL de imagen no válida o recurso no encontrado: " + vehiculo.getFoto());
-            e.printStackTrace();
-        }
+        indicefotos = 0;
+        CarruselFotos();
         seteditar(false);
         kilo.setStyle("-fx-background-color: lightgray;");
         ubi.setStyle("-fx-background-color: lightgray;");
@@ -151,6 +159,32 @@ public class EditarVehiculoController implements Initializable{
         kilo.setStyle("-fx-background-color: lightgray;");
         ubi.setStyle("-fx-background-color: lightgray;");
         precio.setStyle("-fx-background-color: lightgray;");
+    }
+    @FXML
+    private void moverDerFotos(){
+        indicefotos++;
+        CarruselFotos();
+    }
+    @FXML
+    private void moverIzqFotos(){
+        indicefotos--;
+        CarruselFotos();
+    }
+    private void CarruselFotos(){
+        Vehiculo carrito = carros.get(index);
+        ArrayListZ<String> fotosdelcarro = carrito.getFotos();
+        CircleLinkedListZ<String> fotosDelcarro = new CircleLinkedListZ<>();
+        fotosDelcarro.addAll(fotosdelcarro);
+        fotosDelcarro.add(carrito.getFoto());
+        String fotoactual = fotosDelcarro.get(indicefotos);
+        try {
+            Image imagen = new Image("file:"+fotoactual);
+            fotocarro.setImage(imagen);
+        } catch (IllegalArgumentException e) {
+            System.err.println("URL de imagen no válida o recurso no encontrado: " + fotoactual);
+            e.printStackTrace();
+        }
+        
     }
     @FXML
     private void guardarCambios(){
@@ -196,6 +230,42 @@ public class EditarVehiculoController implements Initializable{
                 }
                 mostrarInformacionVehiculo(carros.get(index));
             }
+        }
+    }
+    @FXML
+    private void subirMasFotos(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpeg", "*.jpg")
+        );
+        imagenElegida = fileChooser.showOpenDialog(nvfotos.getScene().getWindow());
+        if (imagenElegida != null) {
+            Image imagen = new Image(imagenElegida.toURI().toString());
+            fotocarro.setImage(imagen);
+            Vehiculo vehiculoActual = carros.get(index);
+            Path destPath;
+            String relativePath;
+            if (getClass().getProtectionDomain().getCodeSource().getLocation().getPath().endsWith(".jar")) {
+                String jarDir = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getPath()).getParent();
+                destPath = Paths.get(jarDir, "imgs", imagenElegida.getName());
+                relativePath = "imgs/" + imagenElegida.getName();
+            } else {
+                destPath = Paths.get("src", "main", "resources", "imgs", imagenElegida.getName());
+                relativePath = "src/main/resources/imgs/" + imagenElegida.getName();
+            }
+
+            try {
+                Files.createDirectories(destPath.getParent());
+                Files.copy(imagenElegida.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            vehiculoActual.getFotos().add(relativePath);
+            ArrayListZ<Vehiculo> vehiculos = Vehiculo.readListFileSer("vehiculos.ser");
+            vehiculos.replace(vehiculoActual);
+            Vehiculo.saveListFileSer("vehiculos.ser", vehiculos);
+            Alert alertaExito = new Alert(Alert.AlertType.INFORMATION, "Foto añadida exitosamente.");
+            alertaExito.showAndWait();
         }
     }
 }
