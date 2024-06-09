@@ -4,11 +4,13 @@
  */
 package com.espol.modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author joshz
  */
-public class Historial {
+public class Historial implements Serializable{
     private int nAccidentes;
     private boolean mantenimientoAlDia;
     
@@ -17,6 +19,13 @@ public class Historial {
     public Historial(int n, boolean m){
         this.nAccidentes=n;
         this.mantenimientoAlDia=m;
+    }
+    public int getnAccidentes() {
+        return nAccidentes;
+    }
+
+    public boolean isMantenimientoAlDia() {
+        return mantenimientoAlDia;
     }
     
     @Override

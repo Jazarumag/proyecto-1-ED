@@ -114,6 +114,7 @@ public class VenderVehiculoController implements Initializable{
         UserMenuController menuController=loader.getController();
         menuController.setUsuario(usuario);
         menuController.mostrarUsuario(usuario.toString());
+        menuController.setCarros(Vehiculo.readListFileSer("vehiculos.ser"));
         Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
         Scene escena=new Scene(root);
         stage.setScene(escena);
@@ -210,7 +211,7 @@ public class VenderVehiculoController implements Initializable{
     public void subirImagen() { //esto es para subir la imagen asi que no toques nada
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("*.png", "*.jpeg", "*.jpg")
+                new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpeg", "*.jpg")
         );
 
         imagenElegida = fileChooser.showOpenDialog(botonRegistrar.getScene().getWindow());

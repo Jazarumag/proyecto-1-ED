@@ -113,7 +113,7 @@ public class EditarVehiculoController implements Initializable{
     private void mostrarInformacionVehiculo(Vehiculo vehiculo) {
         marcamodeloano.setText(vehiculo.getMarca() + " " + vehiculo.getModelo() + " " + vehiculo.getAno());
         placamotortrans.setText("Placa: " + vehiculo.getPlaca() + "\nMotor: " + vehiculo.getMotor() + "\nTransmisión: " + vehiculo.getTransmision());
-        peso.setText("Peso: " + vehiculo.getPeso());
+        peso.setText("Peso: " + vehiculo.getPeso()+ "\nHISTORIAL:\n# Accidentes: " + String.valueOf(vehiculo.getHistorial().getnAccidentes()) + "\nMantenimiento al dia: " + String.valueOf(vehiculo.getHistorial().isMantenimientoAlDia()));
         kilo.setText(String.valueOf(vehiculo.getKilometraje()));
         ubi.setText(vehiculo.getUbicacion());
         precio.setText(String.valueOf(vehiculo.getPrecio()));

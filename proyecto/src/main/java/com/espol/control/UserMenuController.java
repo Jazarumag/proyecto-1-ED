@@ -58,9 +58,10 @@ public class UserMenuController implements Initializable{
     public void setCarros(ArrayListZ<Vehiculo> a){
         this.carros=a;
     }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        moverDer();
+        if (carros!=null) if(!carros.isEmpty()) moverDer();
     }
     
     public void setUsuario(User usuario){
@@ -137,13 +138,15 @@ public class UserMenuController implements Initializable{
     
     @FXML
     private void moverDer(){
+        if (carros!=null) if(!carros.isEmpty()){
         index++;
-        CarruselCarros();
+        CarruselCarros();} else{ System.out.println("No hay Carros");}
     }
     @FXML
     private void moverIzq(){
+        if (carros!=null) if(!carros.isEmpty()){
         index--;
-        CarruselCarros();
+        CarruselCarros();} else{ System.out.println("No hay Carros");}
     }
     private void CarruselCarros(){
         CircleLinkedListZ<Vehiculo> carrusel = new CircleLinkedListZ<>();
