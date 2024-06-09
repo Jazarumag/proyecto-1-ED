@@ -40,6 +40,10 @@ public class ComprarVehiculoController{
 //        numVehisLabel.setText("Se han encontrado: "+ num +" vehículo(s) acorde a sus parámetros");
 //    }
     
+    public void setVehiculos(ArrayListZ<Vehiculo> v){
+        this.vehiculos=v;
+    }
+    
     public void setVehisTot(ArrayListZ<Vehiculo> v){
         this.vehisTot=v;
     }
