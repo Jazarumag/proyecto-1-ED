@@ -5,11 +5,13 @@
 package com.espol.control;
 
 import com.espol.estructuras.ArrayListZ;
+import com.espol.modelo.TipoAuto;
 import com.espol.modelo.User;
 import com.espol.modelo.Utilitaria;
 import com.espol.modelo.Vehiculo;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,6 +24,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -40,8 +43,12 @@ public class FiltrarVehiculoController implements Initializable{
     private TextField inipre;
     @FXML
     private TextField finpre;
-    
-    //private ChoiceBox<TipoVehiculo> tipoVehiCbx;
+    @FXML
+    private ChoiceBox<TipoAuto> cbTipoAuto;
+    @FXML
+    private ChoiceBox<String> cbMarcaAuto;
+    @FXML
+    private ChoiceBox<String> cbModeloAuto;
     @FXML
     private TextField inianio;
     @FXML
@@ -58,9 +65,15 @@ public class FiltrarVehiculoController implements Initializable{
     private CheckBox porPrec;
     @FXML
     private CheckBox porTipo;
+    @FXML
+    private CheckBox porModelo;
+    @FXML
+    private CheckBox porMarca;
     
     private User usuario;
-    //private TipoVehiculo tv;
+    private TipoAuto tipoAuto;
+    private String marcaAuto;
+    private String modeloAuto;
     private ArrayListZ<Vehiculo> vehiculos;
     
     public void setUsuario(User usuario){
@@ -79,19 +92,19 @@ public class FiltrarVehiculoController implements Initializable{
         stage.show();
     }
    
-//    private void cambiarVehisBuscados(ActionEvent event, ArrayListZ<Vehiculo> v) throws IOException{
-//        FXMLLoader loader=new FXMLLoader(getClass().getResource("/ec/edu/espol/proyectoparcial2/VehiculosBuscados.fxml"));
-//        Parent root = (Parent) loader.load();
-//        VehiculosBuscadosController menuController=loader.getController();
-//        menuController.setUsuario(usuario);
-//        menuController.setVehiculos(v);
-//        menuController.setTexto(v.size());
-//        menuController.setVehisTot(vehiculos);
-//        Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-//        Scene escena=new Scene(root);
-//        stage.setScene(escena);
-//        stage.show();
-//    }
+    private void cambiarVehisBuscados(ActionEvent event, ArrayListZ<Vehiculo> v) throws IOException{
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/ec/edu/espol/proyectoparcial2/VehiculosBuscados.fxml"));
+        Parent root = (Parent) loader.load();
+        ComprarVehiculoController menuController=loader.getController();
+        menuController.setUsuario(usuario);
+        menuController.setVehiculos(v);
+        //menuController.setTexto(v.size());
+        menuController.setVehisTot(vehiculos);
+        Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+        Scene escena=new Scene(root);
+        stage.setScene(escena);
+        stage.show();
+    }
     
     @FXML
     private void Atras(ActionEvent event) throws IOException {
@@ -109,14 +122,14 @@ public class FiltrarVehiculoController implements Initializable{
         }
         
         int numFiltros=0;
-        //boolean tipo=false;
+        boolean tipo=false;
         boolean recor=false;
         boolean anio=false;
         boolean prec=false;
-//        if(porTipo.isSelected()){
-//            numFiltros++;
-//            tipo=true;
-//        }
+        if(porTipo.isSelected()){
+            numFiltros++;
+            tipo=true;
+        }
         if(porRecorr.isSelected()){
             numFiltros++;
             recor=true;
@@ -132,8 +145,8 @@ public class FiltrarVehiculoController implements Initializable{
         Alert alerta=new Alert(Alert.AlertType.CONFIRMATION,"Confirme la búsqueda de vehículos por: "+numFiltros+" parámetro(s)");
         if(alerta.showAndWait().get()==ButtonType.OK){
             try{
-//                if(tipo)
-//                    vehiculosFiltro=Utilitaria.filtrarVehiculos(vehiculosFiltro, "tipo", String.valueOf(tv));
+                if(tipo)
+                    vehiculosFiltro=Utilitaria.filtrarVehiculos(vehiculosFiltro, "tipo", String.valueOf(tipoAuto));
                 if(recor){
                     double inicio=Double.parseDouble(inirecorr.getText());
                     double fin=Double.parseDouble(finreco.getText());
@@ -178,16 +191,41 @@ public class FiltrarVehiculoController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        TipoAuto[] tipo={TipoAuto.CAMIONETA,TipoAuto.CONVERTIBLE,TipoAuto.DEPORTIVO,TipoAuto.ELECTRICO,TipoAuto.FAMILIAR,TipoAuto.HATCHBACK,TipoAuto.HIBRIDO,TipoAuto.LIMOSINA,TipoAuto.SEDAN,TipoAuto.SUV,TipoAuto.TODOTERRENO,TipoAuto.VAN};
+        cbTipoAuto.getItems().addAll(tipo);
         vehiculos=Vehiculo.readListFileSer("vehiculos.ser");
-//        TipoVehiculo[] t={TipoVehiculo.MOTO,TipoVehiculo.CARRO,TipoVehiculo.CAMIONETA};
-//        tipoVehiCbx.getItems().addAll(t);
-//        tipoVehiCbx.setOnAction(this::setTipo);
-//        tipoVehiCbx.setValue(TipoVehiculo.CARRO);
+        HashSet<String> marcas=new HashSet<>();
+        for(Vehiculo vehiculo:vehiculos){
+            marcas.add(vehiculo.getMarca());
+        }     
+        cbMarcaAuto.getItems().addAll(marcas);
+        
+        cbTipoAuto.setOnAction(this::setMarca);
+        cbMarcaAuto.setOnAction(this::setModelo);
+        cbModeloAuto.setOnAction(this::obtenerVehi);
     }
     
-//    public void setTipo(ActionEvent e){
-//        tv=tipoVehiCbx.getValue();
-//    }
+    public void setMarca(ActionEvent e){
+        tipoAuto=cbTipoAuto.getValue();
+        
+        cbMarcaAuto.getItems().clear();
+        cbModeloAuto.getItems().clear();
+        marcaAuto=null;
+        modeloAuto=null;
+        HashSet<String> marcas=Utilitaria.obtenerMarcasPorTipo(vehiculos, tipoAuto);
+        cbMarcaAuto.getItems().addAll(marcas);
+    }
+    
+    public void setModelo(ActionEvent e){
+        marcaAuto=cbMarcaAuto.getValue();
+        
+        HashSet<String> marcas=Utilitaria.obtenerModelosPorMarca(vehiculos, marcaAuto);
+        cbModeloAuto.getItems().addAll(marcas);
+    }
+    
+    public void obtenerVehi(ActionEvent e){
+        modeloAuto=cbModeloAuto.getValue();
+    }
    
 }
 

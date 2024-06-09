@@ -8,6 +8,7 @@ import com.espol.estructuras.ArrayListZ;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.HashSet;
 
 /**
  *
@@ -61,12 +62,12 @@ public class Utilitaria {
     public static ArrayListZ<Vehiculo> filtrarVehiculos(ArrayListZ<Vehiculo> vehiculos, String parametro, String datos){
         ArrayListZ<Vehiculo> retorno=new ArrayListZ<>();
         switch(parametro){
-//            case "tipo":
-//                for(Vehiculo vehiculo:vehiculos){
-//                    if(String.valueOf(vehiculo.getTipo()).equals(datos))
-//                        retorno.add(vehiculo);
-//                }
-//                break;
+            case "tipo":
+                for(Vehiculo vehiculo:vehiculos){
+                    if(String.valueOf(vehiculo.getTipoAuto()).equals(datos))
+                        retorno.add(vehiculo);
+                }
+                break;
                 
             case "recorrido":
                 double inicioRecorrido=Double.parseDouble(datos.split("-")[0]);
@@ -95,6 +96,24 @@ public class Utilitaria {
                 }
                 break;
                 
+        }
+        return retorno;
+    }
+    
+    public static HashSet<String> obtenerMarcasPorTipo(ArrayListZ<Vehiculo> vehiculos, TipoAuto ta){
+        HashSet<String> retorno=new HashSet<>();
+        for(Vehiculo vehiculo:vehiculos){
+            if(vehiculo.getTipoAuto().equals(ta))
+                retorno.add(vehiculo.getMarca());
+        }
+        return retorno;
+    }
+    
+    public static HashSet<String> obtenerModelosPorMarca(ArrayListZ<Vehiculo> vehiculos, String marca){
+        HashSet<String> retorno=new HashSet<>();
+        for(Vehiculo vehiculo:vehiculos){
+            if(vehiculo.getMarca().equals(marca))
+                retorno.add(vehiculo.getModelo());
         }
         return retorno;
     }

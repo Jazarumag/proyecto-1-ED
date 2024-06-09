@@ -50,25 +50,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        
-        ArrayListZ<String> lista = new ArrayListZ<>();
-        System.out.println(Arrays.toString(lista.arreglo));
-        lista.add("Hola");
-        lista.add("Hello");
-        lista.add("Bonjour");
-        lista.add("Ciao");
-        lista.add("Guten Morgen");
-        lista.add("CHAO");
-        lista.add("ADIOS");
-        System.out.println(lista.contains("Hola"));
-        System.out.println(lista.contains("No"));
-        System.out.println(Arrays.toString(lista.arreglo));
-        lista.remove("Hello");
-        System.out.println(Arrays.toString(lista.arreglo));
-        for (Vehiculo i: Vehiculo.readListFileSer("vehiculos.ser")){
-            System.out.println(i);
-            System.out.println(i.getFotos());
-        }
         launch();
     }
 
