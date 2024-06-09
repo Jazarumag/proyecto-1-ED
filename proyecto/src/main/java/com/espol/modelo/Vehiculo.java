@@ -43,6 +43,7 @@ public class Vehiculo implements Serializable{
         this.modelo = modelo;
         this.anio = anio;
         this.motor = motor;
+        this.historial=new Historial();
         this.transmision = transmision;
         this.ubicacion = ubicacion;
         this.userID = userID;
@@ -80,6 +81,10 @@ public class Vehiculo implements Serializable{
     public int getPeso() {
         return peso;
     }
+    public void setHistorial(Historial h){
+        this.historial=h;
+    }
+    
     public String getMarca() {
         return marca;
     }
