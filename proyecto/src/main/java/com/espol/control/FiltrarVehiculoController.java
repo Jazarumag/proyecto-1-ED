@@ -123,12 +123,22 @@ public class FiltrarVehiculoController implements Initializable{
         
         int numFiltros=0;
         boolean tipo=false;
+        boolean marca=false;
+        boolean modelo=false;
         boolean recor=false;
         boolean anio=false;
         boolean prec=false;
         if(porTipo.isSelected()){
             numFiltros++;
             tipo=true;
+        }
+        if(porModelo.isSelected()){
+            numFiltros++;
+            modelo=true;
+        }
+        if(porMarca.isSelected()){
+            numFiltros++;
+            marca=true;
         }
         if(porRecorr.isSelected()){
             numFiltros++;
@@ -147,6 +157,10 @@ public class FiltrarVehiculoController implements Initializable{
             try{
                 if(tipo)
                     vehiculosFiltro=Utilitaria.filtrarVehiculos(vehiculosFiltro, "tipo", String.valueOf(tipoAuto));
+                if(marca)
+                    vehiculosFiltro=Utilitaria.filtrarVehiculos(vehiculosFiltro, "marca", String.valueOf(marcaAuto));
+                if(modelo)
+                    vehiculosFiltro=Utilitaria.filtrarVehiculos(vehiculosFiltro, "modelo", String.valueOf(modeloAuto));
                 if(recor){
                     double inicio=Double.parseDouble(inirecorr.getText());
                     double fin=Double.parseDouble(finreco.getText());

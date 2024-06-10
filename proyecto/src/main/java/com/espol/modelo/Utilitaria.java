@@ -84,7 +84,18 @@ public class Utilitaria {
                         retorno.add(vehiculo);
                 }
                 break;
-                
+            case "marca":
+                for(Vehiculo vehiculo:vehiculos){
+                    if(vehiculo.getMarca().equals(datos))
+                        retorno.add(vehiculo);
+                }
+                break;
+            case "modelo":
+                for(Vehiculo vehiculo:vehiculos){
+                    if(vehiculo.getModelo().equals(datos))
+                        retorno.add(vehiculo);
+                }
+                break;
             case "recorrido":
                 double inicioRecorrido=Double.parseDouble(datos.split("-")[0]);
                 double finRecorrido=Double.parseDouble(datos.split("-")[1]);
