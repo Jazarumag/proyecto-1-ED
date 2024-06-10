@@ -12,6 +12,12 @@
     -fx-padding: 10 20 10 10;
     -fx-alignment: center;
 }
+.button:hover {
+    -fx-background-color: #2196C9; 
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+    -fx-transition: all 0.2s ease-in-out;
+}
 .text-field {
     -fx-background-color: #A8DFF6;
     -fx-text-fill: black;

@@ -53,7 +53,6 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="176.59998931884766" minHeight="10.0" prefHeight="96.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="192.60001220703126" minHeight="10.0" prefHeight="92.00001220703126" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="215.2000030517578" minHeight="10.0" prefHeight="165.59998779296876" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -65,19 +64,19 @@
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Label>
-            <Label text="Correo: " GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Label text="Correo: " GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Label>
-            <Label text="Clave:" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+            <Label text="Clave:" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font></Label>
-            <Label GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <TextField fx:id="nombre" GridPane.columnIndex="1" />
             <TextField fx:id="apellido" GridPane.columnIndex="3" />
-            <TextField fx:id="correo" prefHeight="26.0" prefWidth="134.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="clave" maxWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <TextField fx:id="correo" prefHeight="26.0" prefWidth="134.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="clave" maxWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </center>

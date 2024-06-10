@@ -214,17 +214,13 @@ public class EditarVehiculoController implements Initializable{
         }
     }
     @FXML
-    private void eliminarVehiculo(){
+    private void eliminarVehiculo(ActionEvent event) throws IOException{
         Alert alertaEliminar = new Alert(Alert.AlertType.CONFIRMATION,"¿Está seguro de eliminar este vehículo?");
         if(alertaEliminar.showAndWait().get()==ButtonType.OK){
             Vehiculo eliminado = carros.get(index);
-
             ArrayListZ<Vehiculo> vehiculos = Vehiculo.readListFileSer("vehiculos.ser");
-
             vehiculos.remove(eliminado);
-
             Vehiculo.saveListFileSer("vehiculos.ser", vehiculos);
-
             carros.remove(eliminado);
             if (!carros.isEmpty()) {
                 if (index >= carros.size()) {
@@ -233,6 +229,9 @@ public class EditarVehiculoController implements Initializable{
                 mostrarInformacionVehiculo(carros.get(index));
             }
         }
+        Alert alerta = new Alert(Alert.AlertType.INFORMATION,"Vehículo eliminado con éxito");
+        alerta.show();
+        cambiarPantallaUsua(event);
     }
     @FXML
     private void subirMasFotos(){

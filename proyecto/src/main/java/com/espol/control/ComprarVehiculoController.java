@@ -73,7 +73,7 @@ public class ComprarVehiculoController{
     private int indicefotos;
     
     public void setTexto(int num){
-        numVehisLabel.setText("Se han encontrado: "+ num +" vehículo(s) acorde a sus parámetros");
+        numVehisLabel.setText("Se han encontrado: "+ num +" vehículo(s)");
     }
     
     public void setVehiculos(ArrayListZ<Vehiculo> v){
@@ -180,7 +180,7 @@ public class ComprarVehiculoController{
     @FXML
     private void ofertar(ActionEvent event) throws IOException{
         if(!vehi.getUserId().equals(usuario.getID())){
-            Alert alerta=new Alert(Alert.AlertType.CONFIRMATION,"¿Quiere ofertar por "+vehi+" ?");
+            Alert alerta=new Alert(Alert.AlertType.CONFIRMATION,"¿Quiere ofertar por "+vehi.getMarca()+" "+vehi.getModelo()+" "+vehi.getAno()+" ?");
             if(alerta.showAndWait().get()==ButtonType.OK){
                 if(vehi!=null){
                     Alert a=new Alert(Alert.AlertType.INFORMATION,"Se ha enviado su oferta, notificando al comprador... (espere un momento)");
@@ -231,11 +231,15 @@ public class ComprarVehiculoController{
     private void ordenarPrecio(){
         Collections.sort(vehiculos, (v1, v2) -> Integer.compare(v1.getPrecio(), v2.getPrecio()));
         setVehiculos(vehiculos);
+        index=0;
+        mostrarInformacionVehiculo(carros.get(0));
     }
     
     @FXML
     private void ordenarKm(){
         Collections.sort(vehiculos, (v1, v2) -> Integer.compare(v1.getKilometraje(), v2.getKilometraje()));
         setVehiculos(vehiculos);
+        index=0;
+        mostrarInformacionVehiculo(carros.get(0));
     }
 }

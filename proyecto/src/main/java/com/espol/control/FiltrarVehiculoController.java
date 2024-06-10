@@ -94,6 +94,8 @@ public class FiltrarVehiculoController implements Initializable{
     }
    
     private void cambiarVehisBuscados(ActionEvent event, ArrayListZ<Vehiculo> v) throws IOException{
+        if (v.isEmpty()) { Alert c=new Alert(Alert.AlertType.ERROR,"No hay vehículos que cumplan esos parámetros.");
+            c.show();}else{
         FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/espol/proyecto/ComprarVehiculo.fxml"));
         Parent root = (Parent) loader.load();
         ComprarVehiculoController menuController=loader.getController();
@@ -103,7 +105,7 @@ public class FiltrarVehiculoController implements Initializable{
         Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
         Scene escena=new Scene(root);
         stage.setScene(escena);
-        stage.show();
+        stage.show();}
     }
     
     @FXML
@@ -191,8 +193,6 @@ public class FiltrarVehiculoController implements Initializable{
                     }
                     vehiculosFiltro=Utilitaria.filtrarVehiculos(vehiculosFiltro, "precio", inicio+"-"+fin);
                 }
-                System.out.println(vehiculos);
-                System.out.println(vehiculosFiltro);
                 cambiarVehisBuscados(event,vehiculosFiltro);
             }
             catch(NumberFormatException e){

@@ -68,6 +68,12 @@ public class UserMenuController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         if (carros!=null) if(!carros.isEmpty()) moverDer();
+        foto.setOnMouseEntered(event -> {
+                foto.setStyle("-fx-scale-x: 0.95; -fx-scale-y: 0.95; -fx-transition: all 0.2s ease-in-out;");
+            });
+            foto.setOnMouseExited(event -> {
+                foto.setStyle("-fx-scale-x: 1; -fx-scale-y: 1; -fx-transition: all 0.2s ease-in-out;");
+            });
     }
     
     public void setUsuario(User usuario){
@@ -187,6 +193,25 @@ public class UserMenuController implements Initializable{
             e.printStackTrace();
         }
         descripcion.setText("$ "+carrito.getPrecio()+" "+carrito.getMarca()+" "+carrito.getModelo());
+        foto.setOnMouseClicked(event -> {
+            try {
+                System.out.println("hola como estas");
+                FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/espol/proyecto/ComprarVehiculo.fxml"));
+                Parent root = (Parent) loader.load();
+                ArrayListZ<Vehiculo> lista = new ArrayListZ<>();
+                lista.add(carrito);
+                ComprarVehiculoController menuController=loader.getController();
+                menuController.setUsuario(usuario);
+                menuController.setVehiculos(lista);
+                menuController.setTexto(lista.size());
+                Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+                Scene escena=new Scene(root);
+                stage.setScene(escena);
+                stage.show();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
     }
 
 }
