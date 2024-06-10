@@ -53,6 +53,8 @@ public class UserMenuController implements Initializable{
     @FXML
     private Label descripcion;
     @FXML
+    private Label labelAnuncio;
+    @FXML
     private ImageView foto;
     @FXML
     private ImageView fotoANTERIOR;
@@ -118,15 +120,25 @@ public class UserMenuController implements Initializable{
     
     @FXML
     private void cambiarEditarVehi(ActionEvent event) throws IOException{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto/EditarVehiculo.fxml"));
-        Parent root = (Parent) loader.load();
-        EditarVehiculoController vehiculoControlador = loader.getController();
-        vehiculoControlador.mostrarUsuarioo(usuario.getNombres());
-        vehiculoControlador.setUsuario(usuario);
-        Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene escena=new Scene(root);
-        stage.setScene(escena);
-        stage.show();
+        int contador=0;
+        for(Vehiculo v:carros)
+            if(v.getUserId().equals(usuario.getID())) contador++;
+        
+        if(contador==0){
+            Alert c=new Alert(Alert.AlertType.ERROR,"No cuenta con vehiculos registrados");
+            c.show();
+        }
+        else{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/espol/proyecto/EditarVehiculo.fxml"));
+            Parent root = (Parent) loader.load();
+            EditarVehiculoController vehiculoControlador = loader.getController();
+            vehiculoControlador.mostrarUsuarioo(usuario.getNombres());
+            vehiculoControlador.setUsuario(usuario);
+            Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
+            Scene escena=new Scene(root);
+            stage.setScene(escena);
+            stage.show();
+        }
     }
     @FXML
     private void verPerfil(ActionEvent event) throws IOException{
@@ -143,15 +155,18 @@ public class UserMenuController implements Initializable{
     @FXML
     private void moverDer(){
         if (carros!=null) if(!carros.isEmpty()){
+        labelAnuncio.setText("");
         index++;
         CarruselCarros();} else{ System.out.println("No hay Carros");}
     }
     @FXML
     private void moverIzq(){
         if (carros!=null) if(!carros.isEmpty()){
+        labelAnuncio.setText("");
         index--;
         CarruselCarros();} else{ System.out.println("No hay Carros");}
     }
+    
     private void CarruselCarros(){
         CircleLinkedListZ<Vehiculo> carrusel = new CircleLinkedListZ<>();
         ArrayListZ<Vehiculo> a = Vehiculo.readListFileSer("vehiculos.ser");

@@ -93,13 +93,12 @@ public class FiltrarVehiculoController implements Initializable{
     }
    
     private void cambiarVehisBuscados(ActionEvent event, ArrayListZ<Vehiculo> v) throws IOException{
-        FXMLLoader loader=new FXMLLoader(getClass().getResource("/ec/edu/espol/proyectoparcial2/VehiculosBuscados.fxml"));
+        FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/espol/proyecto/ComprarVehiculo.fxml"));
         Parent root = (Parent) loader.load();
         ComprarVehiculoController menuController=loader.getController();
         menuController.setUsuario(usuario);
         menuController.setVehiculos(v);
-        //menuController.setTexto(v.size());
-        menuController.setVehisTot(vehiculos);
+        menuController.setTexto(v.size());
         Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
         Scene escena=new Scene(root);
         stage.setScene(escena);
@@ -179,7 +178,7 @@ public class FiltrarVehiculoController implements Initializable{
                 }
                 System.out.println(vehiculos);
                 System.out.println(vehiculosFiltro);
-                //cambiarVehisBuscados(event,vehiculosFiltro);
+                cambiarVehisBuscados(event,vehiculosFiltro);
             }
             catch(NumberFormatException e){
                 Alert a=new Alert(Alert.AlertType.ERROR,"Ingrese datos válidos");

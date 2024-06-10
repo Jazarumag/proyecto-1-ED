@@ -9,6 +9,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.HashSet;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -36,6 +43,15 @@ public class Utilitaria {
         ArrayListZ<User> usuarios=User.readListFileSer("usuarios.ser");
         for(User user:usuarios){
             if(correo.equals(user.getCorreo()) && clave.equals(user.getClave()))
+                return user;
+        }
+        return null;
+    }
+    
+    public static User obtenerUsuarioPorID(String id){   
+        ArrayListZ<User> usuarios=User.readListFileSer("usuarios.ser");
+        for(User user:usuarios){
+            if(id.equals(user.getID()))
                 return user;
         }
         return null;
@@ -116,5 +132,48 @@ public class Utilitaria {
                 retorno.add(vehiculo.getModelo());
         }
         return retorno;
+    }
+    
+    public static void enviarConGMail(String destinatario, String asunto, String cuerpo) {
+        Properties configProps = new Properties();
+        try {
+            configProps.load(new FileInputStream("configuracionCorreo.properties"));
+        } catch (IOException e) {
+            System.err.println("Error al cargar el archivo de configuración: " + e.getMessage());
+            e.printStackTrace();
+            return;
+        }
+
+        String remitente = configProps.getProperty("remitente");
+        String claveemail = configProps.getProperty("claveemail");
+        String smtpHost = configProps.getProperty("smtp.host");
+        String smtpPort = configProps.getProperty("smtp.port");
+
+        Properties props = System.getProperties();
+        props.put("mail.smtp.host", smtpHost);
+        props.put("mail.smtp.user", remitente);
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.port", smtpPort);
+        props.put("mail.smtp.ssl.trust", smtpHost);
+        props.put("mail.debug", "true");
+
+        Session session = Session.getDefaultInstance(props);
+        MimeMessage message = new MimeMessage(session);
+
+        try {
+            message.setFrom(new InternetAddress(remitente));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(destinatario));
+            message.setSubject(asunto);
+            message.setText(cuerpo);
+            Transport transport = session.getTransport("smtp");
+            transport.connect(smtpHost, remitente, claveemail);
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+            System.out.println("Correo enviado exitosamente");
+        } catch (MessagingException me) {
+            System.err.println("Error al enviar el correo: " + me.getMessage());
+            me.printStackTrace();
+        }
     }
 }

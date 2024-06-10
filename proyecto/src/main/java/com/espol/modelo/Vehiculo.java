@@ -165,5 +165,5 @@ public class Vehiculo implements Serializable{
     public String toString() {
         return "Vehiculo{" + "placa=" + placa + ", precio=" + precio + ", kilometraje=" + kilometraje + ", peso=" + peso + ", marca=" + marca + ", modelo=" + modelo + ", ano=" + anio + ", motor=" + motor + ", transmision=" + transmision + ", ubicacion=" + ubicacion + ", historial=" + historial + ", userID=" + userID + ", foto=" + foto + '}';
     }
-    
+
 }

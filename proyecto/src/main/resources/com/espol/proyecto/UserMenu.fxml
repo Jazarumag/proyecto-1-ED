@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="631.0" stylesheets="@css/fondo.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.UserMenuController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.0" prefWidth="631.0" stylesheets="@css/fondo.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.espol.control.UserMenuController">
    <top>
       <GridPane prefHeight="102.0" prefWidth="631.0" stylesheets="@css/gridpane.css" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -56,7 +56,9 @@
         <rowConstraints>
           <RowConstraints maxHeight="53.6000244140625" minHeight="31.99998779296875" prefHeight="53.6000244140625" />
           <RowConstraints maxHeight="86.40001373291015" minHeight="10.0" prefHeight="36.599981689453124" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="99.79999389648438" minHeight="10.0" prefHeight="31.0" vgrow="SOMETIMES" />
           <RowConstraints maxHeight="99.79999389648438" minHeight="7.0" prefHeight="31.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="102.60001220703126" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="102.60001220703126" minHeight="10.0" prefHeight="28.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="131.0" minHeight="10.0" prefHeight="131.0" valignment="CENTER" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="114.4000244140625" minHeight="10.0" prefHeight="27.0" vgrow="SOMETIMES" />
@@ -73,12 +75,12 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="comprVehi" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cambiarComprarVehi" prefHeight="32.0" prefWidth="168.0" text="  COMPRAR VEHÍCULOS" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+            <Button fx:id="comprVehi" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cambiarComprarVehi" prefHeight="32.0" prefWidth="168.0" text="  COMPRAR VEHÍCULOS" GridPane.halignment="CENTER" GridPane.rowIndex="8">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Button>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" stylesheets="@css/fondo.css" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="4" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" stylesheets="@css/fondo.css" GridPane.halignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="6" GridPane.valignment="CENTER" GridPane.vgrow="SOMETIMES">
                <children>
                   <Button fx:id="IZQ" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#moverIzq" text="🢀">
                      <padding>
@@ -91,6 +93,11 @@
                   <ImageView fx:id="fotoANTERIOR" fitHeight="86.0" fitWidth="127.0" pickOnBounds="true" preserveRatio="true" />
                   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                      <children>
+                        <Label fx:id="labelAnuncio" alignment="CENTER" prefHeight="46.0" prefWidth="200.0" text="Click a las flechas para navegar">
+                           <font>
+                              <Font name="System Bold" size="13.0" />
+                           </font>
+                        </Label>
                         <ImageView fx:id="foto" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
                         <Label fx:id="descripcion" text="Descripción Carro" textFill="#363062">
                            <font>
@@ -112,7 +119,7 @@
                   <Insets />
                </GridPane.margin>
             </HBox>
-            <Button fx:id="editarVehi" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cambiarEditarVehi" prefHeight="32.0" prefWidth="168.0" text="  EDITA TUS VEHÍCULOS" GridPane.rowIndex="2">
+            <Button fx:id="editarVehi" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#cambiarEditarVehi" prefHeight="32.0" prefWidth="168.0" text="  EDITA TUS VEHÍCULOS" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>

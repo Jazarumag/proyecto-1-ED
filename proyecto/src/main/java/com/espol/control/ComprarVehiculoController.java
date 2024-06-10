@@ -3,14 +3,13 @@ package com.espol.control;
 import com.espol.estructuras.ArrayListZ;
 import com.espol.estructuras.CircleLinkedListZ;
 import com.espol.modelo.User;
+import com.espol.modelo.Utilitaria;
 import com.espol.modelo.Vehiculo;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.Collections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,7 +31,7 @@ import javafx.stage.Stage;
  *
  * @author joshz
  */
-public class ComprarVehiculoController implements Initializable{
+public class ComprarVehiculoController{
     @FXML
     private TextField marcamodeloano;
     @FXML
@@ -50,49 +49,45 @@ public class ComprarVehiculoController implements Initializable{
     @FXML
     private TextField historial;
     @FXML
-    private ImageView fotocarro;
+    private Button Volver;
     @FXML
     private Button Comprar;
-    @FXML
-    private Button IZQ;
-    @FXML
-    private Button DER;
     @FXML
     private Button IZQfotos;
     @FXML
     private Button DERfotos;
+    @FXML
+    private Button botonOrdenarPrecio;
+    @FXML
+    private Button botonOrdenarPorKm;
+    @FXML
+    private Label numVehisLabel;
+    @FXML
+    private ImageView fotocarro;
     
     private ArrayListZ<Vehiculo> vehiculos;
     private CircleLinkedListZ<Vehiculo> carros;
     private User usuario;
     private Vehiculo vehi;
-    private ArrayListZ<Vehiculo> vehisTot;
     private int index;
     private int indicefotos;
     
-    
-    @FXML
-    private Button Volver;
-    @FXML
-    private Button VendeVehiculo;
-    
-//    public void setTexto(int num){
-//        numVehisLabel.setText("Se han encontrado: "+ num +" vehículo(s) acorde a sus parámetros");
-//    }
+    public void setTexto(int num){
+        numVehisLabel.setText("Se han encontrado: "+ num +" vehículo(s) acorde a sus parámetros");
+    }
     
     public void setVehiculos(ArrayListZ<Vehiculo> v){
         this.vehiculos=v;
+        carros=new CircleLinkedListZ<>();
         carros.addAll(v);
-    }
-    
-    public void setVehisTot(ArrayListZ<Vehiculo> v){
-        this.vehisTot=v;
+        
+        mostrarInformacionVehiculo(carros.get(0));
     }
     
     public void setUsuario(User usuario){
         this.usuario=usuario;
     }
-
+    @FXML
     private void cambiarPantallaUsua(ActionEvent event) throws IOException{
         FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/espol/proyecto/UserMenu.fxml"));
         Parent root = (Parent) loader.load();
@@ -118,6 +113,7 @@ public class ComprarVehiculoController implements Initializable{
         return "No al día";
     }
     private void mostrarInformacionVehiculo(Vehiculo vehiculo) {
+        vehi=vehiculo;
         marcamodeloano.setText(vehiculo.getMarca() + " " + vehiculo.getModelo() + " " + vehiculo.getAno());
         Motor.setText(vehiculo.getMotor());
         transmision.setText(String.valueOf(vehiculo.getTransmision()));
@@ -125,13 +121,10 @@ public class ComprarVehiculoController implements Initializable{
         kilo.setText(String.valueOf(vehiculo.getKilometraje()));
         ubi.setText(vehiculo.getUbicacion());
         precio.setText(String.valueOf(vehiculo.getPrecio()));
-        historial.setText(siono(vehiculo.getHistorial().isMantenimientoAlDia())+"/"+String.valueOf(vehiculo.getHistorial().getnAccidentes()));
+        historial.setText(siono(vehiculo.getHistorial().isMantenimientoAlDia())+" / "+String.valueOf(vehiculo.getHistorial().getnAccidentes())+" accidente(s)");
         indicefotos = 0;
         CarruselFotos();
         seteditar(false);
-        kilo.setStyle("-fx-background-color: lightgray;");
-        ubi.setStyle("-fx-background-color: lightgray;");
-        precio.setStyle("-fx-background-color: lightgray;");
     }
     private void seteditar(boolean a){
         marcamodeloano.setEditable(a);
@@ -158,9 +151,6 @@ public class ComprarVehiculoController implements Initializable{
         Vehiculo carrito = carrusel.get(index);
         mostrarInformacionVehiculo(carrito);
         seteditar(false);
-        kilo.setStyle("-fx-background-color: lightgray;");
-        ubi.setStyle("-fx-background-color: lightgray;");
-        precio.setStyle("-fx-background-color: lightgray;");
     }
     @FXML
     private void moverDerFotos(){
@@ -188,60 +178,64 @@ public class ComprarVehiculoController implements Initializable{
         }
     }
     @FXML
-    private void eliminarVehiculo(){
-        Alert alertaEliminar = new Alert(Alert.AlertType.CONFIRMATION,"¿Está seguro de eliminar este vehículo?");
-        if(alertaEliminar.showAndWait().get()==ButtonType.OK){
-            Vehiculo eliminado = carros.get(index);
-            ArrayListZ<Vehiculo> vehiculos = Vehiculo.readListFileSer("vehiculos.ser");
-            vehiculos.remove(eliminado);
-            Vehiculo.saveListFileSer("vehiculos.ser", vehiculos);
-            carros.remove(eliminado);
-            if (!carros.isEmpty()) {
-                if (index >= carros.size()) {
-                    index = 0;
+    private void ofertar(ActionEvent event) throws IOException{
+        if(!vehi.getUserId().equals(usuario.getID())){
+            Alert alerta=new Alert(Alert.AlertType.CONFIRMATION,"¿Quiere ofertar por "+vehi+" ?");
+            if(alerta.showAndWait().get()==ButtonType.OK){
+                if(vehi!=null){
+                    Alert a=new Alert(Alert.AlertType.INFORMATION,"Se ha enviado su oferta, notificando al comprador... (espere un momento)");
+                    a.show();
+                    notificarVendedor();
+                    notificarComprador();
+                    a.close();
+                    Alert c=new Alert(Alert.AlertType.INFORMATION,"Se ha notificado al comprador");
+                    c.show();
+                    cambiarPantallaUsua(event);
                 }
-                mostrarInformacionVehiculo(carros.get(index));
+                else{
+                    Alert a=new Alert(Alert.AlertType.ERROR,"No ha seleccionado vehículo");
+                    a.show();
+                }
+            }else{
+                Alert a=new Alert(Alert.AlertType.ERROR,"No puede ofertar por su propio vehículo");
+                a.show();
             }
         }
     }
-//    @FXML
-//    private void ofertar(ActionEvent event) throws IOException{
-//        if(!vehi.getVendedor().equals(usuario)){
-//            Alert alerta=new Alert(Alert.AlertType.CONFIRMATION,"¿Quiere ofertar por "+vehi+" ?");
-//            if(alerta.showAndWait().get()==ButtonType.OK){
-//                if(vehi!=null){
-//                    try{
-//                        double precioOferta=Double.parseDouble(ofertarTxt.getText());
-//                        Oferta oferta=new Oferta(usuario,vehi,precioOferta);
-//                        vehi.getOfertas().add(oferta);
-//                        for(Vehiculo v:vehisTot){
-//                            if(vehi.equals(v))
-//                                v=vehi;
-//                        }
-//                        Vehiculo.saveListFileSer("vehiculos.ser", vehisTot);
-//                        Alert a=new Alert(Alert.AlertType.INFORMATION,"Se ha puesto su oferta");
-//                        a.show();
-//                        cambiarPantallaUsua(event);
-//                    }
-//                    catch(NumberFormatException e){
-//                        Alert a=new Alert(Alert.AlertType.ERROR,"Ingrese una oferta válida");
-//                        a.show();
-//                    }
-//                }
-//                else{
-//                    Alert a=new Alert(Alert.AlertType.ERROR,"No ha seleccionado vehículo");
-//                    a.show();
-//                }
-//            }
-//        }
-//        else{
-//            Alert a=new Alert(Alert.AlertType.ERROR,"No puede ofertar por su propio vehículo");
-//            a.show();
-//        }
-//    }
+    
+    private boolean notificarVendedor(){
+        String asunto="OFERTA ENTRANTE";
+        String cuerpo="HA RECIBIDO UNA OFERTA POR SU "+vehi.getMarca()+" "+vehi.getModelo()+" CON PLACA "+vehi.getPlaca()+" DE PARTE DEL USUARIO "+usuario.getCorreo();
+        try {
+            Utilitaria.enviarConGMail(Utilitaria.obtenerUsuarioPorID(vehi.getUserId()).getCorreo(), asunto, cuerpo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al enviar el correo", e);
+        }
+        return true;
+    }
+    
+    private boolean notificarComprador(){
+        String asunto="OFERTA ENVIADA";
+        String cuerpo="SU OFERTA POR "+vehi.getMarca()+" "+vehi.getModelo()+" HA SIDO NOTIFICADA A "+Utilitaria.obtenerUsuarioPorID(vehi.getUserId()).getCorreo();
+        try {
+            Utilitaria.enviarConGMail(usuario.getCorreo(), asunto, cuerpo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al enviar el correo", e);
+        }
+        return true;
+    }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    @FXML
+    private void ordenarPrecio(){
+        Collections.sort(vehiculos, (v1, v2) -> Integer.compare(v1.getPrecio(), v2.getPrecio()));
+        setVehiculos(vehiculos);
+    }
+    
+    @FXML
+    private void ordenarKm(){
+        Collections.sort(vehiculos, (v1, v2) -> Integer.compare(v1.getKilometraje(), v2.getKilometraje()));
+        setVehiculos(vehiculos);
     }
 }

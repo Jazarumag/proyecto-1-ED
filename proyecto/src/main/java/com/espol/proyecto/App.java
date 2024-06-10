@@ -1,8 +1,6 @@
 package com.espol.proyecto;
 
-import com.espol.estructuras.ArrayListZ;
 import com.espol.modelo.User;
-import com.espol.modelo.Vehiculo;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.Arrays;
 import javafx.scene.image.Image;
 
 /**

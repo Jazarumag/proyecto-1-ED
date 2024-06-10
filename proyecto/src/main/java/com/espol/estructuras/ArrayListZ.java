@@ -259,7 +259,63 @@ public class ArrayListZ<E> implements List<E>, Serializable {
 
     @Override
     public ListIterator<E> listIterator() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return new ListIterator<E>() {
+            private int index = 0;
+
+            @Override
+            public boolean hasNext() {
+                return index < n;
+            }
+
+            @Override
+            public E next() {
+                if (!hasNext()) {
+                    throw new NoSuchElementException();
+                }
+                return arreglo[index++];
+            }
+
+            @Override
+            public boolean hasPrevious() {
+                return index > 0;
+            }
+
+            @Override
+            public E previous() {
+                if (!hasPrevious()) {
+                    throw new NoSuchElementException();
+                }
+                return arreglo[--index];
+            }
+
+            @Override
+            public int nextIndex() {
+                return index;
+            }
+
+            @Override
+            public int previousIndex() {
+                return index - 1;
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public void set(E e) {
+                if (index <= 0 || index > n) {
+                    throw new IllegalStateException();
+                }
+                arreglo[index - 1] = e;
+            }
+
+            @Override
+            public void add(E e) {
+                throw new UnsupportedOperationException();
+            }
+        };
     }
 
     @Override
