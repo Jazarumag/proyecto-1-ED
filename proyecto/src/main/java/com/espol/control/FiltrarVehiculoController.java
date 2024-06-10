@@ -86,6 +86,7 @@ public class FiltrarVehiculoController implements Initializable{
         UserMenuController menuController=loader.getController();
         menuController.setUsuario(usuario);
         menuController.mostrarUsuario(usuario.toString());
+        menuController.setCarros(Vehiculo.readListFileSer("vehiculos.ser"));
         Stage stage=(Stage)((Node)event.getSource()).getScene().getWindow();
         Scene escena=new Scene(root);
         stage.setScene(escena);
@@ -122,12 +123,22 @@ public class FiltrarVehiculoController implements Initializable{
         
         int numFiltros=0;
         boolean tipo=false;
+        boolean marca=false;
+        boolean modelo=false;
         boolean recor=false;
         boolean anio=false;
         boolean prec=false;
         if(porTipo.isSelected()){
             numFiltros++;
             tipo=true;
+        }
+        if(porModelo.isSelected()){
+            numFiltros++;
+            modelo=true;
+        }
+        if(porMarca.isSelected()){
+            numFiltros++;
+            marca=true;
         }
         if(porRecorr.isSelected()){
             numFiltros++;
@@ -146,6 +157,10 @@ public class FiltrarVehiculoController implements Initializable{
             try{
                 if(tipo)
                     vehiculosFiltro=Utilitaria.filtrarVehiculos(vehiculosFiltro, "tipo", String.valueOf(tipoAuto));
+                if(marca)
+                    vehiculosFiltro=Utilitaria.filtrarVehiculos(vehiculosFiltro, "marca", String.valueOf(marcaAuto));
+                if(modelo)
+                    vehiculosFiltro=Utilitaria.filtrarVehiculos(vehiculosFiltro, "modelo", String.valueOf(modeloAuto));
                 if(recor){
                     double inicio=Double.parseDouble(inirecorr.getText());
                     double fin=Double.parseDouble(finreco.getText());
