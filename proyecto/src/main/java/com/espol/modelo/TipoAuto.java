@@ -9,6 +9,7 @@ package com.espol.modelo;
  * @author luisa
  */
 public enum TipoAuto {
+    TODOS,
     SEDAN,
     FAMILIAR,   
     SUV,

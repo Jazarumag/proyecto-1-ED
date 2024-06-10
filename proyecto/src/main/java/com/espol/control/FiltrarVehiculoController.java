@@ -157,7 +157,7 @@ public class FiltrarVehiculoController implements Initializable{
         Alert alerta=new Alert(Alert.AlertType.CONFIRMATION,"Confirme la búsqueda de vehículos por: "+numFiltros+" parámetro(s)");
         if(alerta.showAndWait().get()==ButtonType.OK){
             try{
-                if(tipo)
+                if(tipo && tipoAuto!=TipoAuto.TODOS)
                     vehiculosFiltro=Utilitaria.filtrarVehiculos(vehiculosFiltro, "tipo", String.valueOf(tipoAuto));
                 if(marca)
                     vehiculosFiltro=Utilitaria.filtrarVehiculos(vehiculosFiltro, "marca", String.valueOf(marcaAuto));
@@ -205,16 +205,13 @@ public class FiltrarVehiculoController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        TipoAuto[] tipo={TipoAuto.CAMIONETA,TipoAuto.CONVERTIBLE,TipoAuto.DEPORTIVO,TipoAuto.ELECTRICO,TipoAuto.FAMILIAR,TipoAuto.HATCHBACK,TipoAuto.HIBRIDO,TipoAuto.LIMOSINA,TipoAuto.SEDAN,TipoAuto.SUV,TipoAuto.TODOTERRENO,TipoAuto.VAN};
+        TipoAuto[] tipo={TipoAuto.TODOS,TipoAuto.CAMIONETA,TipoAuto.CONVERTIBLE,TipoAuto.DEPORTIVO,TipoAuto.ELECTRICO,TipoAuto.FAMILIAR,TipoAuto.HATCHBACK,TipoAuto.HIBRIDO,TipoAuto.LIMOSINA,TipoAuto.SEDAN,TipoAuto.SUV,TipoAuto.TODOTERRENO,TipoAuto.VAN};
         cbTipoAuto.getItems().addAll(tipo);
         vehiculos=Vehiculo.readListFileSer("vehiculos.ser");
-        HashSet<String> marcas=new HashSet<>();
-        for(Vehiculo vehiculo:vehiculos){
-            marcas.add(vehiculo.getMarca());
-        }     
-        cbMarcaAuto.getItems().addAll(marcas);
-        
+ 
+        System.out.println(vehiculos);
         cbTipoAuto.setOnAction(this::setMarca);
+        cbTipoAuto.setValue(TipoAuto.TODOS);
         cbMarcaAuto.setOnAction(this::setModelo);
         cbModeloAuto.setOnAction(this::obtenerVehi);
     }
@@ -232,8 +229,9 @@ public class FiltrarVehiculoController implements Initializable{
     
     public void setModelo(ActionEvent e){
         marcaAuto=cbMarcaAuto.getValue();
-        
-        HashSet<String> marcas=Utilitaria.obtenerModelosPorMarca(vehiculos, marcaAuto);
+        cbModeloAuto.getItems().clear();
+        modeloAuto=null;
+        HashSet<String> marcas=Utilitaria.obtenerModelosPorMarca(vehiculos, marcaAuto, tipoAuto);
         cbModeloAuto.getItems().addAll(marcas);
     }
     

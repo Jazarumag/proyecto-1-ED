@@ -129,18 +129,31 @@ public class Utilitaria {
     
     public static HashSet<String> obtenerMarcasPorTipo(ArrayListZ<Vehiculo> vehiculos, TipoAuto ta){
         HashSet<String> retorno=new HashSet<>();
-        for(Vehiculo vehiculo:vehiculos){
-            if(vehiculo.getTipoAuto().equals(ta))
+        if(ta==TipoAuto.TODOS){
+            for(Vehiculo vehiculo:vehiculos){
                 retorno.add(vehiculo.getMarca());
+        }
+        }else{
+            for(Vehiculo vehiculo:vehiculos){
+                if(vehiculo.getTipoAuto()==ta)
+                    retorno.add(vehiculo.getMarca());
+            }
         }
         return retorno;
     }
     
-    public static HashSet<String> obtenerModelosPorMarca(ArrayListZ<Vehiculo> vehiculos, String marca){
+    public static HashSet<String> obtenerModelosPorMarca(ArrayListZ<Vehiculo> vehiculos, String marca, TipoAuto ta){
         HashSet<String> retorno=new HashSet<>();
-        for(Vehiculo vehiculo:vehiculos){
+        if(ta!=TipoAuto.TODOS){
+            for(Vehiculo vehiculo:vehiculos){
+                if(vehiculo.getMarca().equals(marca) && vehiculo.getTipoAuto()==ta)
+                    retorno.add(vehiculo.getModelo());
+            }
+        }else{
+            for(Vehiculo vehiculo:vehiculos){
             if(vehiculo.getMarca().equals(marca))
                 retorno.add(vehiculo.getModelo());
+            }
         }
         return retorno;
     }
