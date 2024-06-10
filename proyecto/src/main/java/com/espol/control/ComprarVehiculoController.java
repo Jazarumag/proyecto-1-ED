@@ -196,10 +196,10 @@ public class ComprarVehiculoController{
                     Alert a=new Alert(Alert.AlertType.ERROR,"No ha seleccionado vehículo");
                     a.show();
                 }
-            }else{
-                Alert a=new Alert(Alert.AlertType.ERROR,"No puede ofertar por su propio vehículo");
-                a.show();
             }
+        }else{
+            Alert a=new Alert(Alert.AlertType.ERROR,"No puede ofertar por su propio vehículo");
+            a.show();
         }
     }
     

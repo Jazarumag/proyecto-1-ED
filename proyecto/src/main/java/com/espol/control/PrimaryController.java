@@ -1,6 +1,5 @@
 package com.espol.control;
 
-import com.espol.estructuras.ArrayListZ;
 import com.espol.modelo.User;
 import com.espol.modelo.Utilitaria;
 import com.espol.modelo.Vehiculo;
@@ -42,9 +41,6 @@ public class PrimaryController {
         User user=Utilitaria.obtenerUsuario(correo, clave);
         Alert alerta;
         if(user!=null){
-            alerta=new Alert(Alert.AlertType.INFORMATION,"Usuario correcto");
-            alerta.show();
-
             FXMLLoader loader=new FXMLLoader(getClass().getResource("/com/espol/proyecto/UserMenu.fxml"));
             Parent root = (Parent) loader.load();
             UserMenuController menuControlador=loader.getController();
