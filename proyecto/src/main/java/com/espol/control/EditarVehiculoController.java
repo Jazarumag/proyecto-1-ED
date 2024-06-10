@@ -73,7 +73,7 @@ public class EditarVehiculoController implements Initializable{
     private int indicefotos;
     private File imagenElegida;
     private User usuario;
-    private CircleLinkedListZ<Vehiculo> carros;
+    private CircleLinkedListZ<Vehiculo> carros =new CircleLinkedListZ<>();;
     private int index=0;
     
     public void setUsuario(User u){
@@ -105,16 +105,19 @@ public class EditarVehiculoController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         System.out.println(usuario);
-        carros = new CircleLinkedListZ<>();
     }
     
     public void mostrarUsuarioo(String nombre){
         saludo.setText("Hola, "+nombre);
     }
+    private String siono(boolean a){
+        if (a) return "Si";
+        return "No";
+    }
     private void mostrarInformacionVehiculo(Vehiculo vehiculo) {
         marcamodeloano.setText(vehiculo.getMarca() + " " + vehiculo.getModelo() + " " + vehiculo.getAno());
         placamotortrans.setText("Placa: " + vehiculo.getPlaca() + "\nMotor: " + vehiculo.getMotor() + "\nTransmisión: " + vehiculo.getTransmision());
-        peso.setText("Peso: " + vehiculo.getPeso()+ "\nHISTORIAL:\n# Accidentes: " + String.valueOf(vehiculo.getHistorial().getnAccidentes()) + "\nMantenimiento al dia: " + String.valueOf(vehiculo.getHistorial().isMantenimientoAlDia()));
+        peso.setText("Peso: " + vehiculo.getPeso()+ "\nHISTORIAL:\n# Accidentes: " + String.valueOf(vehiculo.getHistorial().getnAccidentes()) + "\nMantenimiento al dia: " + siono(vehiculo.getHistorial().isMantenimientoAlDia()));
         kilo.setText(String.valueOf(vehiculo.getKilometraje()));
         ubi.setText(vehiculo.getUbicacion());
         precio.setText(String.valueOf(vehiculo.getPrecio()));
@@ -151,9 +154,7 @@ public class EditarVehiculoController implements Initializable{
         CarruselCarros();
     }
     private void CarruselCarros(){
-        CircleLinkedListZ<Vehiculo> carrusel = new CircleLinkedListZ<>();
-        ArrayListZ<Vehiculo> a = Vehiculo.readListFileSer("vehiculos.ser");
-        carrusel.addAll(a);
+        CircleLinkedListZ<Vehiculo> carrusel = carros;
         Vehiculo carrito = carrusel.get(index);
         mostrarInformacionVehiculo(carrito);
         seteditar(false);

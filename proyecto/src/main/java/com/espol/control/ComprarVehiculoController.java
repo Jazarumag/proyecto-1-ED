@@ -1,18 +1,26 @@
 package com.espol.control;
 
 import com.espol.estructuras.ArrayListZ;
+import com.espol.estructuras.CircleLinkedListZ;
 import com.espol.modelo.User;
 import com.espol.modelo.Vehiculo;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /*
@@ -24,12 +32,44 @@ import javafx.stage.Stage;
  *
  * @author joshz
  */
-public class ComprarVehiculoController{
-
+public class ComprarVehiculoController implements Initializable{
+    @FXML
+    private TextField marcamodeloano;
+    @FXML
+    private TextField Motor;
+    @FXML
+    private TextField transmision;
+    @FXML
+    private TextField peso;
+    @FXML
+    private TextField kilo;
+    @FXML
+    private TextField ubi;
+    @FXML
+    private TextField precio;
+    @FXML
+    private TextField historial;
+    @FXML
+    private ImageView fotocarro;
+    @FXML
+    private Button Comprar;
+    @FXML
+    private Button IZQ;
+    @FXML
+    private Button DER;
+    @FXML
+    private Button IZQfotos;
+    @FXML
+    private Button DERfotos;
+    
     private ArrayListZ<Vehiculo> vehiculos;
+    private CircleLinkedListZ<Vehiculo> carros;
     private User usuario;
     private Vehiculo vehi;
     private ArrayListZ<Vehiculo> vehisTot;
+    private int index;
+    private int indicefotos;
+    
     
     @FXML
     private Button Volver;
@@ -42,6 +82,7 @@ public class ComprarVehiculoController{
     
     public void setVehiculos(ArrayListZ<Vehiculo> v){
         this.vehiculos=v;
+        carros.addAll(v);
     }
     
     public void setVehisTot(ArrayListZ<Vehiculo> v){
@@ -72,7 +113,97 @@ public class ComprarVehiculoController{
             cambiarPantallaUsua(event);
         }
     }
-
+    private String siono(boolean a){
+        if (a) return "Al día";
+        return "No al día";
+    }
+    private void mostrarInformacionVehiculo(Vehiculo vehiculo) {
+        marcamodeloano.setText(vehiculo.getMarca() + " " + vehiculo.getModelo() + " " + vehiculo.getAno());
+        Motor.setText(vehiculo.getMotor());
+        transmision.setText(String.valueOf(vehiculo.getTransmision()));
+        peso.setText(String.valueOf(vehiculo.getPeso()));
+        kilo.setText(String.valueOf(vehiculo.getKilometraje()));
+        ubi.setText(vehiculo.getUbicacion());
+        precio.setText(String.valueOf(vehiculo.getPrecio()));
+        historial.setText(siono(vehiculo.getHistorial().isMantenimientoAlDia())+"/"+String.valueOf(vehiculo.getHistorial().getnAccidentes()));
+        indicefotos = 0;
+        CarruselFotos();
+        seteditar(false);
+        kilo.setStyle("-fx-background-color: lightgray;");
+        ubi.setStyle("-fx-background-color: lightgray;");
+        precio.setStyle("-fx-background-color: lightgray;");
+    }
+    private void seteditar(boolean a){
+        marcamodeloano.setEditable(a);
+        Motor.setEditable(a);
+        transmision.setEditable(a);
+        kilo.setEditable(a);
+        ubi.setEditable(a);
+        peso.setEditable(a);
+        precio.setEditable(a);
+        historial.setEditable(a);
+    }
+    @FXML
+    private void moverDer(){
+        index++;
+        CarruselCarros();
+    }
+    @FXML
+    private void moverIzq(){
+        index--;
+        CarruselCarros();
+    }
+    private void CarruselCarros(){
+        CircleLinkedListZ<Vehiculo> carrusel = carros;
+        Vehiculo carrito = carrusel.get(index);
+        mostrarInformacionVehiculo(carrito);
+        seteditar(false);
+        kilo.setStyle("-fx-background-color: lightgray;");
+        ubi.setStyle("-fx-background-color: lightgray;");
+        precio.setStyle("-fx-background-color: lightgray;");
+    }
+    @FXML
+    private void moverDerFotos(){
+        indicefotos++;
+        CarruselFotos();
+    }
+    @FXML
+    private void moverIzqFotos(){
+        indicefotos--;
+        CarruselFotos();
+    }
+    private void CarruselFotos(){
+        Vehiculo carrito = carros.get(index);
+        ArrayListZ<String> fotosdelcarro = carrito.getFotos();
+        CircleLinkedListZ<String> fotosDelcarro = new CircleLinkedListZ<>();
+        fotosDelcarro.addAll(fotosdelcarro);
+        fotosDelcarro.add(carrito.getFoto());
+        String fotoactual = fotosDelcarro.get(indicefotos);
+        try {
+            Image imagen = new Image("file:"+fotoactual);
+            fotocarro.setImage(imagen);
+        } catch (IllegalArgumentException e) {
+            System.err.println("URL de imagen no válida o recurso no encontrado: " + fotoactual);
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    private void eliminarVehiculo(){
+        Alert alertaEliminar = new Alert(Alert.AlertType.CONFIRMATION,"¿Está seguro de eliminar este vehículo?");
+        if(alertaEliminar.showAndWait().get()==ButtonType.OK){
+            Vehiculo eliminado = carros.get(index);
+            ArrayListZ<Vehiculo> vehiculos = Vehiculo.readListFileSer("vehiculos.ser");
+            vehiculos.remove(eliminado);
+            Vehiculo.saveListFileSer("vehiculos.ser", vehiculos);
+            carros.remove(eliminado);
+            if (!carros.isEmpty()) {
+                if (index >= carros.size()) {
+                    index = 0;
+                }
+                mostrarInformacionVehiculo(carros.get(index));
+            }
+        }
+    }
 //    @FXML
 //    private void ofertar(ActionEvent event) throws IOException{
 //        if(!vehi.getVendedor().equals(usuario)){
@@ -108,4 +239,9 @@ public class ComprarVehiculoController{
 //            a.show();
 //        }
 //    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
