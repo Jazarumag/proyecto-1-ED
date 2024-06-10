@@ -134,8 +134,13 @@ public class CircleLinkedListZ<E> implements List<E> {
 
     @Override
     public E get(int index) {
+        if (index<0 && index*(-1)>size()){
+            index*=-1;
+            index%=size();
+            index*=-1;
+        }
         if (index < 0 ) {
-            index*=(-1);
+            index=size()+index;
         }
         return getNode(index).contenido;
     }
